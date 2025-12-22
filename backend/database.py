@@ -34,6 +34,7 @@ class Database:
                     device_type TEXT,
                     manufacturer TEXT,
                     model TEXT,
+                    cpe TEXT,
                     open_ports TEXT,  -- JSON stored as text
                     first_seen TIMESTAMP,
                     last_seen TIMESTAMP,
@@ -51,10 +52,22 @@ class Database:
                     severity TEXT,
                     cvss_score REAL,
                     remediation TEXT,
+                    component TEXT,
                     FOREIGN KEY(device_id) REFERENCES devices(id)
                 )
                 ''')
                 
+                # Schema Migration: Add cpe and component columns if they don't exist
+                try:
+                    cursor.execute("ALTER TABLE devices ADD COLUMN cpe TEXT")
+                except sqlite3.OperationalError:
+                    pass # Column likely exists
+                
+                try:
+                    cursor.execute("ALTER TABLE vulnerabilities ADD COLUMN component TEXT")
+                except sqlite3.OperationalError:
+                     pass
+
                 conn.commit()
         except Exception as e:
             logger.error(f"Database initialization failed: {e}")
@@ -124,7 +137,7 @@ class Database:
                     cursor.execute('''
                     UPDATE devices SET 
                         mac_address=?, hostname=?, device_type=?, 
-                        manufacturer=?, model=?, open_ports=?, 
+                        manufacturer=?, model=?, cpe=?, open_ports=?, 
                         last_seen=?, status=?
                     WHERE ip_address=?
                     ''', (
@@ -133,6 +146,7 @@ class Database:
                         device_data.get('device_type'),
                         device_data.get('manufacturer'),
                         device_data.get('model'),
+                        device_data.get('cpe'),
                         ports_json,
                         now,
                         'online',
@@ -142,9 +156,9 @@ class Database:
                     cursor.execute('''
                     INSERT INTO devices (
                         ip_address, mac_address, hostname, device_type,
-                        manufacturer, model, open_ports, first_seen,
+                        manufacturer, model, cpe, open_ports, first_seen,
                         last_seen, status
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ''', (
                         device_data['ip_address'],
                         device_data.get('mac_address'),
@@ -152,6 +166,7 @@ class Database:
                         device_data.get('device_type'),
                         device_data.get('manufacturer'),
                         device_data.get('model'),
+                        device_data.get('cpe'),
                         ports_json,
                         now,
                         now,
@@ -166,6 +181,37 @@ class Database:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM vulnerabilities WHERE device_id = ?", (device_id,))
             return [dict(row) for row in cursor.fetchall()]
+
+    def add_vulnerability(self, device_id: int, vuln: Dict):
+        """Add a vulnerability to a device"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                # Check if exists to avoid duplicates
+                cursor.execute('''
+                SELECT id FROM vulnerabilities 
+                WHERE device_id=? AND cve_id=?
+                ''', (device_id, vuln.get('cve_id')))
+                
+                if not cursor.fetchone():
+                    cursor.execute('''
+                    INSERT INTO vulnerabilities (
+                        device_id, cve_id, description, severity, 
+                        cvss_score, remediation, component
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ''', (
+                        device_id,
+                        vuln.get('cve_id'),
+                        vuln.get('description'),
+                        vuln.get('severity'),
+                        vuln.get('cvss_score'),
+                        vuln.get('remediation'),
+                        vuln.get('component')
+                    ))
+                    conn.commit()
+        except Exception as e:
+            logger.error(f"Error adding vulnerability: {e}")
     
     def clear_all_data(self):
         """Clear all data from all tables"""

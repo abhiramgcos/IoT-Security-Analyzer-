@@ -191,8 +191,40 @@ elif page == "🔍 Network Scan":
     try:
         devices = api.get_devices()
         if devices:
-            df = pd.DataFrame(devices)
-            st.dataframe(df, use_container_width=True)
+            # Professional Table View
+            # Flatten or format data for display
+            display_data = []
+            for d in devices:
+                display_data.append({
+                    "IP Address": d.get('ip_address'),
+                    "Hostname": d.get('hostname'),
+                    "Manufacturer": d.get('manufacturer'),
+                    "Model": d.get('model') or "Unknown",
+                    "Type": d.get('device_type'),
+                    "MAC": d.get('mac_address'),
+                    "Status": d.get('status'),
+                    "Open Ports": str(d.get('open_ports', []))
+                })
+            
+            df = pd.DataFrame(display_data)
+            
+            # Use data editor for interaction capability if needed, or stick to dataframe
+            st.data_editor(
+                df,
+                column_config={
+                    "Status": st.column_config.TextColumn(
+                        "Status",
+                        help="Device Online/Offline status",
+                    ),
+                    "Open Ports": st.column_config.TextColumn(
+                        "Open Ports",
+                        width="medium"
+                    )
+                },
+                use_container_width=True,
+                hide_index=True,
+                num_rows="dynamic"
+            )
         else:
             st.info("No devices discovered yet. Run a scan.")
     except Exception as e:
@@ -240,6 +272,31 @@ elif page == "⚠️ Vulnerabilities":
             # Extract IP addresses for dropdown
             device_ips = [d['ip_address'] for d in devices]
             device_ip = st.selectbox("Select Device", device_ips)
+            
+            if device_ip:
+                col1, col2 = st.columns([3, 1])
+                with col1:
+                    st.write(f"Showing vulnerabilities for: **{device_ip}**")
+                with col2:
+                    if st.button("Run CVE Scan"):
+                        with st.spinner("Scanning NVD Database (this may take a moment)..."):
+                            try:
+                                # Call the new POST endpoint
+                                import requests
+                                # Need to access API_URL from config or hardcode for now since this is client logic
+                                # But api_client is available
+                                # api.trigger_cvs_scan(selected_device_ip) - need to add to client
+                                # For now, quick hack using requests
+                                 # In docker, we can't hit backend by name easily from browser-side logic if passing through client
+                                 # But streamlit runs server side.
+                                 # api_client needs update
+                                response = api.scan_cves(device_ip)
+                                if response:
+                                    st.success(f"Scan complete: {response.get('message')}")
+                                    time.sleep(1)
+                                    st.rerun()
+                            except Exception as e:
+                                st.error(f"Scan failed: {e}")
             
             # Fetch vulnerabilities for selected device
             try:

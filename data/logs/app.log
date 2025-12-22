@@ -1,0 +1,120 @@
+2025-12-22 22:28:48,681 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:28:48,681 - main - INFO - Backend API initialized
+2025-12-22 22:28:51,028 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:28:51,028 - scanner_routes - INFO - Sample device (first): {'id': 23, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:22:40.937485', 'last_seen': '2025-12-22T22:22:40.937485', 'status': 'online'}
+2025-12-22 22:28:51,028 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:28:58,010 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:28:58,011 - scanner_routes - INFO - Sample device (first): {'id': 23, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:22:40.937485', 'last_seen': '2025-12-22T22:22:40.937485', 'status': 'online'}
+2025-12-22 22:28:58,011 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:28:58,016 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-22 22:29:00,761 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:29:00,761 - scanner_routes - INFO - Sample device (first): {'id': 23, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:22:40.937485', 'last_seen': '2025-12-22T22:22:40.937485', 'status': 'online'}
+2025-12-22 22:29:00,761 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:29:03,777 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:29:03,777 - scanner_routes - INFO - Sample device (first): {'id': 23, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:22:40.937485', 'last_seen': '2025-12-22T22:22:40.937485', 'status': 'online'}
+2025-12-22 22:29:03,777 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:29:04,297 - scanner_routes - INFO - Starting network scan for subnet: 192.168.1.0/24
+2025-12-22 22:29:05,430 - network_scanner - WARNING - MAC vendor lookup unavailable: <urlopen error Failed downloading OUI database>
+2025-12-22 22:29:05,431 - network_scanner - INFO - Starting generic scan on 192.168.1.0/24
+2025-12-22 22:29:13,227 - network_scanner - INFO - Scan completed: 11 devices found
+2025-12-22 22:29:13,227 - scanner_routes - INFO - Scan completed: 11 devices found
+2025-12-22 22:29:13,229 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:29:13,229 - scanner_routes - INFO - Sample device (first): {'id': 23, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:22:40.937485', 'last_seen': '2025-12-22T22:29:13.192585', 'status': 'online'}
+2025-12-22 22:29:13,229 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:30:10,878 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-22 22:30:12,341 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:30:12,341 - main - INFO - Backend API initialized
+2025-12-22 22:30:13,960 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:30:13,960 - scanner_routes - INFO - Sample device (first): {'id': 23, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:22:40.937485', 'last_seen': '2025-12-22T22:29:13.192585', 'status': 'online'}
+2025-12-22 22:30:13,960 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:30:20,264 - scanner_routes - INFO - Clearing all database data
+2025-12-22 22:30:20,268 - database - INFO - All data cleared from database
+2025-12-22 22:30:22,902 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:30:22,903 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:30:22,905 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-22 22:30:23,630 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:30:23,630 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:30:26,928 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:30:26,928 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:30:27,548 - scanner_routes - INFO - Starting network scan for subnet: 192.168.1.0/24
+2025-12-22 22:30:28,580 - network_scanner - WARNING - MAC vendor lookup unavailable: <urlopen error Failed downloading OUI database>
+2025-12-22 22:30:28,581 - network_scanner - INFO - Starting generic scan on 192.168.1.0/24
+2025-12-22 22:30:36,153 - network_scanner - INFO - Scan completed: 11 devices found
+2025-12-22 22:30:36,154 - scanner_routes - INFO - Scan completed: 11 devices found
+2025-12-22 22:30:36,156 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:30:36,156 - scanner_routes - INFO - Sample device (first): {'id': 34, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:30:36.120204', 'last_seen': '2025-12-22T22:30:36.120204', 'status': 'online'}
+2025-12-22 22:30:36,156 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:30:48,594 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:30:48,594 - scanner_routes - INFO - Sample device (first): {'id': 34, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:30:36.120204', 'last_seen': '2025-12-22T22:30:36.120204', 'status': 'online'}
+2025-12-22 22:30:48,595 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:30:48,599 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-22 22:30:52,252 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:30:52,252 - scanner_routes - INFO - Sample device (first): {'id': 34, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:30:36.120204', 'last_seen': '2025-12-22T22:30:36.120204', 'status': 'online'}
+2025-12-22 22:30:52,252 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:30:52,996 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:30:52,996 - scanner_routes - INFO - Sample device (first): {'id': 34, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:30:36.120204', 'last_seen': '2025-12-22T22:30:36.120204', 'status': 'online'}
+2025-12-22 22:30:52,996 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:30:52,999 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-22 22:33:58,714 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-22 22:34:00,149 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:34:00,149 - main - INFO - Backend API initialized
+2025-12-22 22:38:27,747 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-22 22:38:29,174 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:38:29,174 - main - INFO - Backend API initialized
+2025-12-22 22:38:34,288 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-22 22:38:35,716 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:38:35,716 - main - INFO - Backend API initialized
+2025-12-22 22:39:09,707 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-22 22:39:11,222 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:39:11,223 - main - INFO - Backend API initialized
+2025-12-22 22:39:12,909 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:39:12,909 - scanner_routes - INFO - Sample device (first): {'id': 34, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:30:36.120204', 'last_seen': '2025-12-22T22:30:36.120204', 'status': 'online'}
+2025-12-22 22:39:12,909 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:39:12,912 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-22 22:39:14,867 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:39:14,867 - scanner_routes - INFO - Sample device (first): {'id': 34, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:30:36.120204', 'last_seen': '2025-12-22T22:30:36.120204', 'status': 'online'}
+2025-12-22 22:39:14,867 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:39:20,650 - scanner_routes - INFO - Clearing all database data
+2025-12-22 22:39:20,652 - database - INFO - All data cleared from database
+2025-12-22 22:39:23,708 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:39:23,708 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:39:23,710 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-22 22:39:25,470 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:39:25,470 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:39:30,347 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:39:30,347 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:39:31,067 - scanner_routes - INFO - Starting network scan for subnet: 192.168.1.0/24
+2025-12-22 22:39:32,082 - network_scanner - WARNING - MAC vendor lookup unavailable: <urlopen error Failed downloading OUI database>
+2025-12-22 22:39:32,084 - network_scanner - INFO - Starting generic scan on 192.168.1.0/24
+2025-12-22 22:39:44,627 - network_scanner - INFO - Scan completed: 11 devices found
+2025-12-22 22:39:44,627 - scanner_routes - INFO - Scan completed: 11 devices found
+2025-12-22 22:39:44,628 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:39:44,629 - scanner_routes - INFO - Sample device (first): {'id': 45, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:39:44.583839', 'last_seen': '2025-12-22T22:39:44.583839', 'status': 'online'}
+2025-12-22 22:39:44,629 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:40:29,041 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:40:29,041 - scanner_routes - INFO - Sample device (first): {'id': 45, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:39:44.583839', 'last_seen': '2025-12-22T22:39:44.583839', 'status': 'online'}
+2025-12-22 22:40:29,041 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:42:08,654 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-22 22:42:09,851 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:42:09,852 - main - INFO - Backend API initialized
+2025-12-22 22:42:12,059 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:42:12,059 - scanner_routes - INFO - Sample device (first): {'id': 45, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:39:44.583839', 'last_seen': '2025-12-22T22:39:44.583839', 'status': 'online'}
+2025-12-22 22:42:12,059 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:42:23,619 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-22 22:45:35,518 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-22 22:45:35,518 - main - INFO - Backend API initialized
+2025-12-22 22:45:36,478 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:45:36,478 - scanner_routes - INFO - Sample device (first): {'id': 45, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:39:44.583839', 'last_seen': '2025-12-22T22:39:44.583839', 'status': 'online', 'cpe': None}
+2025-12-22 22:45:36,478 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:45:36,480 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-22 22:45:42,794 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-22 22:45:42,794 - scanner_routes - INFO - Sample device (first): {'id': 45, 'ip_address': '192.168.1.1', 'mac_address': 'Unknown', 'hostname': 'Unknown', 'device_type': 'unknown', 'manufacturer': 'Unknown', 'model': None, 'open_ports': [], 'first_seen': '2025-12-22T22:39:44.583839', 'last_seen': '2025-12-22T22:39:44.583839', 'status': 'online', 'cpe': None}
+2025-12-22 22:45:42,794 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-22 22:45:49,264 - scanner_routes - INFO - Clearing all database data
+2025-12-22 22:45:49,267 - database - INFO - All data cleared from database
+2025-12-22 22:45:51,088 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:45:51,088 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:45:53,885 - scanner_routes - INFO - Fetched 0 devices from DB
+2025-12-22 22:45:53,885 - scanner_routes - INFO - Returning 0/0 valid devices
+2025-12-22 22:45:54,466 - scanner_routes - INFO - Starting network scan for subnet: 192.168.1.0/24
+2025-12-22 22:45:54,592 - network_scanner - INFO - Starting professional scan on 192.168.1.0/24

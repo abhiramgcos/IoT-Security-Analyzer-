@@ -72,6 +72,14 @@ class APIClient:
     
     # ========== VULNERABILITY ENDPOINTS ==========
     
+    def scan_cves(self, ip_address: str) -> Dict:
+        """Trigger CVE scan for a device"""
+        response = self.session.post(
+            f"{self.base_url}/api/vulnerabilities/scan/{ip_address}"
+        )
+        response.raise_for_status()
+        return response.json()
+
     def get_device_vulnerabilities(self, ip_address: str) -> List[Dict]:
         """Get device vulnerabilities"""
         response = self.session.get(

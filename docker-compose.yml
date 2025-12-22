@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: iot-analyzer-backend
-    ports:
-      - "8000:8000"
+    # Host networking - no ports mapping needed
+    network_mode: "host"
     environment:
       - SCAN_SUBNET=192.168.1.0/24
       - SCAN_INTERFACE=eth0
@@ -16,17 +16,22 @@ services:
       - FIRMWARE_CACHE_DIR=./data/firmware
       - REPORT_DIR=./data/reports
       - PCAP_DIR=./data/pcaps
-      - LOG_DIR=./logs
+      - LOG_DIR=./data/logs
       - LOG_LEVEL=INFO
+      # Crucial: NVD API Key from .env is strictly passed through
+      - NVD_API_KEY=${NVD_API_KEY}
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
       - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - iot-network
+    # Capabilities for packet capture and scanning
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    privileged: true
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -38,19 +43,17 @@ services:
       context: .
       dockerfile: Dockerfile.streamlit
     container_name: iot-analyzer-frontend
-    ports:
-      - "8501:8501"
+    # Host networking to access backend easily and avoid bridge isolation
+    network_mode: "host"
     environment:
       - STREAMLIT_SERVER_PORT=8501
       - STREAMLIT_SERVER_ADDRESS=0.0.0.0
-      - API_URL=http://backend:8000
+      - API_URL=http://127.0.0.1:8000
     volumes:
       - ./frontend:/app/frontend
-    networks:
-      - iot-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8501/_stcore/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -58,6 +61,4 @@ services:
     depends_on:
       - backend
 
-networks:
-  iot-network:
-    driver: bridge
+# No bridge networks needed for host mode

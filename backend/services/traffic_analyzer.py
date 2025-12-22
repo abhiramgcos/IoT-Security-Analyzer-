@@ -2,6 +2,7 @@
 import time
 import subprocess
 import os
+import json
 from typing import List, Dict
 from backend.config import settings
 from backend.logger import Logger
@@ -14,27 +15,25 @@ class TrafficAnalyzer:
         
     def start_capture(self, interface: str, duration: int):
         """
-        Start capturing traffic on interface for duration using tcpdump.
+        Start capturing traffic on interface using tshark.
         Requires NET_ADMIN capability in Docker.
         """
-        logger.info(f"Starting capture on {interface} for {duration}s")
+        logger.info(f"Starting tshark capture on {interface} for {duration}s")
         
         timestamp = int(time.time())
         filename = f"capture_{timestamp}.pcap"
         filepath = os.path.join(settings.PCAP_DIR, filename)
 
         try:
-            # -i: interface, -w: write to file, -G: rotate every X seconds (used here as timeout)
-            # -W: limit number of files (1)
-            # Alternative: use subprocess `timeout` cmd or python threading
-            
+            # Use tshark instead of tcpdump for richer analysis
             cmd = [
                 "timeout", str(duration),
-                "tcpdump", "-i", interface, "-w", filepath, "-n"
+                "tshark", "-i", interface, "-w", filepath, 
+                "-f", "not port 22"  # Exclude SSH to reduce noise
             ]
             
-            # Start in background (simplified for this context)
-            subprocess.Popen(cmd)
+            # Start in background
+            subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             
             return filename
             
@@ -43,43 +42,131 @@ class TrafficAnalyzer:
             return None
 
     def analyze_pcap(self, pcap_path: str) -> Dict:
-        """Analyze a PCAP file using tcpdump -r for basic stats"""
-        logger.info(f"Analyzing {pcap_path}")
+        """Analyze PCAP file using tshark for detailed protocol statistics"""
+        logger.info(f"Analyzing {pcap_path} with tshark")
         
         if not os.path.exists(pcap_path):
             return {"error": "File not found"}
 
         stats = {
             "total_packets": 0,
-            "suspicious_ips": [],
             "protocols": {},
-            "anomalies": []
+            "conversations": [],
+            "suspicious_ips": [],
+            "anomalies": [],
+            "bandwidth": {}
         }
 
         try:
-            # Read packets
-            cmd = ["tcpdump", "-nn", "-r", pcap_path]
-            process = subprocess.run(cmd, capture_output=True, text=True)
+            # Get protocol hierarchy statistics
+            proto_cmd = ["tshark", "-r", pcap_path, "-q", "-z", "io,phs"]
+            proto_result = subprocess.run(proto_cmd, capture_output=True, text=True, timeout=30)
             
-            if process.returncode == 0:
-                lines = process.stdout.splitlines()
-                stats["total_packets"] = len(lines)
-                
-                # Basic parsing (Very simplified)
-                for line in lines:
-                    if "IP" in line:
-                        parts = line.split()
-                        # Extract IPs/Ports would require regex
-                        # Just counting protocols roughly
-                        if "UDP" in line:
-                            stats["protocols"]["UDP"] = stats["protocols"].get("UDP", 0) + 1
-                        elif "TCP" in line:
-                            stats["protocols"]["TCP"] = stats["protocols"].get("TCP", 0) + 1
-                        elif "ICMP" in line:
-                            stats["protocols"]["ICMP"] = stats["protocols"].get("ICMP", 0) + 1
+            if proto_result.returncode == 0:
+                stats["protocols"] = self._parse_protocol_hierarchy(proto_result.stdout)
+            
+            # Get conversation statistics (top IP pairs)
+            conv_cmd = ["tshark", "-r", pcap_path, "-q", "-z", "conv,ip"]
+            conv_result = subprocess.run(conv_cmd, capture_output=True, text=True, timeout=30)
+            
+            if conv_result.returncode == 0:
+                stats["conversations"] = self._parse_conversations(conv_result.stdout)
+            
+            # Get packet count
+            count_cmd = ["tshark", "-r", pcap_path, "-T", "fields", "-e", "frame.number"]
+            count_result = subprocess.run(count_cmd, capture_output=True, text=True, timeout=30)
+            
+            if count_result.returncode == 0:
+                stats["total_packets"] = len(count_result.stdout.strip().split('\n'))
+            
+            # Detect anomalies (simplified)
+            stats["anomalies"] = self._detect_anomalies(stats)
                             
             return stats
 
+        except subprocess.TimeoutExpired:
+            logger.error("Tshark analysis timeout")
+            return {"error": "Analysis timeout"}
         except Exception as e:
             logger.error(f"Analysis failed: {e}")
             return {"error": str(e)}
+    
+    def _parse_protocol_hierarchy(self, output: str) -> Dict:
+        """Parse tshark protocol hierarchy output"""
+        protocols = {}
+        lines = output.split('\n')
+        
+        for line in lines:
+            line = line.strip()
+            if not line or line.startswith('=') or 'frames' in line.lower():
+                continue
+            
+            # Extract protocol name and count
+            if 'ip' in line.lower():
+                protocols['IP'] = protocols.get('IP', 0) + 1
+            if 'tcp' in line.lower():
+                protocols['TCP'] = protocols.get('TCP', 0) + 1
+            if 'udp' in line.lower():
+                protocols['UDP'] = protocols.get('UDP', 0) + 1
+           if 'http' in line.lower():
+                protocols['HTTP'] = protocols.get('HTTP', 0) + 1
+            if 'dns' in line.lower():
+                protocols['DNS'] = protocols.get('DNS', 0) + 1
+            if 'tls' in line.lower() or 'ssl' in line.lower():
+                protocols['TLS/SSL'] = protocols.get('TLS/SSL', 0) + 1
+        
+        return protocols
+    
+    def _parse_conversations(self, output: str) -> List[Dict]:
+        """Parse tshark conversation output"""
+        conversations = []
+        lines = output.split('\n')
+        
+        # Skip header lines
+        data_started = False
+        for line in lines:
+            if '<->' in line:
+                data_started = True
+            if not data_started or not line.strip():
+                continue
+            
+            # Parse conversation line
+            parts = line.split()
+            if len(parts) >= 7:
+                try:
+                    conversations.append({
+                        "address_a": parts[0],
+                        "address_b": parts[2],  # Skip the <->
+                        "frames": int(parts[3]),
+                        "bytes": int(parts[4])
+                    })
+                except (ValueError, IndexError):
+                    continue
+        
+        # Return top 10 by bytes
+        conversations.sort(key=lambda x: x.get('bytes', 0), reverse=True)
+        return conversations[:10]
+    
+    def _detect_anomalies(self, stats: Dict) -> List[str]:
+        """Detect potential security anomalies"""
+        anomalies = []
+        
+        protocols = stats.get('protocols', {})
+        
+        # Check for excessive UDP traffic
+        udp_count = protocols.get('UDP', 0)
+        total_packets = stats.get('total_packets', 1)
+        if udp_count > total_packets * 0.7:
+            anomalies.append("High volume of UDP traffic detected")
+        
+        # Check for DNS tunneling indicators
+        dns_count = protocols.get('DNS', 0)
+        if dns_count > total_packets * 0.5:
+            anomalies.append("Unusual DNS query volume (possible tunneling)")
+        
+        # Check for unencrypted HTTP
+        http_count = protocols.get('HTTP', 0)
+        if http_count > 0:
+            anomalies.append(f"Unencrypted HTTP traffic detected ({http_count} packets)")
+        
+        return anomalies

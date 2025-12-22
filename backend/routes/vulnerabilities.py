@@ -17,6 +17,45 @@ class VulnerabilityResponse(BaseModel):
     description: str
     remediation: Optional[str]
 
+@router.post("/scan/{ip_address}")
+async def scan_device_vulnerabilities(ip_address: str):
+    """
+    Trigger a CVE scan for a specific device.
+    Uses cached CPE or heuristics to query NVD.
+    """
+    try:
+        from backend.services.cve_scanner import CVEScanner
+        
+        device = db.get_device(ip_address)
+        if not device:
+            raise HTTPException(status_code=404, detail="Device not found")
+            
+        scanner = CVEScanner()
+        
+        # Use stored CPE if available, otherwise fallback to make/model
+        vulns = scanner.scan_device(
+            vendor=device.get('manufacturer', 'Unknown'),
+            model=device.get('model', 'Unknown'),
+            version=None, # Version often part of CPE or model string
+            cpe=device.get('cpe')
+        )
+        
+        # Save to database
+        added_count = 0
+        for vuln in vulns:
+            db.add_vulnerability(device['id'], vuln)
+            added_count += 1
+            
+        return {
+            "status": "success",
+            "message": f"Scan completed. Found {len(vulns)} vulnerabilities.",
+            "cves_found": len(vulns)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error scanning device {ip_address}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.get("/device/{ip_address}", response_model=List[VulnerabilityResponse])
 async def get_device_vulnerabilities(ip_address: str):
     """
