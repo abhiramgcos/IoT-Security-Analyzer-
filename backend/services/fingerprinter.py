@@ -36,6 +36,9 @@ class DeviceFingerprinter:
             "os": os_match
         }
         
+        # 0. Normalize Manufacturer Name
+        evidence["mac_vendor"] = self._normalize_vendor(evidence["mac_vendor"])
+
         # 1. Deduce Manuf/Model
         manufacturer = evidence["mac_vendor"]
         model = "Unknown"
@@ -76,6 +79,11 @@ class DeviceFingerprinter:
                     device_type = "Camera"
                     model = "IP Camera"
                     confidence += 0.6
+                
+                elif "Apache" in server_sig:
+                    # Generic server
+                    if device_type == "Unknown":
+                        device_type = "Server"
 
             # SSH Banner Check
             if "SSH" in banner and ("OpenSSH" in banner or "Dropbear" in banner):
@@ -99,6 +107,12 @@ class DeviceFingerprinter:
                 manufacturer = "Apple"
                 device_type = "Mobile"
                 confidence += 0.4
+            elif 5000 in evidence["ports"] or 8000 in evidence["ports"] or 8080 in evidence["ports"]:
+                 # Development ports often imply generic servers or desktops
+                 if "Windows" in str(evidence["os"]):
+                     device_type = "Workstation"
+                 elif "Linux" in str(evidence["os"]):
+                     device_type = "Linux Server"
         
         # Heuristic 4: OS Detection
         if evidence["os"] and evidence["os"] != "Unknown":
@@ -108,6 +122,23 @@ class DeviceFingerprinter:
             elif "Windows" in evidence["os"]:
                 device_type = "Workstation"
                 manufacturer = "Microsoft"
+            elif "Android" in evidence["os"]:
+                device_type = "Mobile/Tablet"
+                manufacturer = "Google/Android OEM"        
+                
+        # Heuristic 5: Manufacturer implied types
+        if device_type == "Unknown" and manufacturer != "Unknown":
+            man_lower = manufacturer.lower()
+            if "camera" in man_lower or "axis" in man_lower:
+                device_type = "Camera"
+            elif "router" in man_lower or "netgear" in man_lower or "linksys" in man_lower:
+                device_type = "Router"
+            elif "apple" in man_lower:
+                device_type = "Mobile/Mac"
+            elif "espressif" in man_lower:
+                device_type = "IoT Controller"
+            elif "xiaomi" in man_lower:
+                device_type = "Smart Device"
                 
         # Generate CPE
         cpe = self._generate_cpe(manufacturer, model, version, device_type)
