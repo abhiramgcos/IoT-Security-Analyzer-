@@ -71,9 +71,16 @@ async def get_cached_firmware():
     try:
         cached = {}
         if os.path.exists(settings.FIRMWARE_CACHE_DIR):
-            for vendor in os.listdir(settings.FIRMWARE_CACHE_DIR):
-                vendor_path = os.path.join(settings.FIRMWARE_CACHE_DIR, vendor)
-                cached[vendor] = os.listdir(vendor_path)
+            for item in os.listdir(settings.FIRMWARE_CACHE_DIR):
+                # Skip .gitkeep and other non-directory files
+                if item.startswith('.'):
+                    continue
+                    
+                vendor_path = os.path.join(settings.FIRMWARE_CACHE_DIR, item)
+                
+                # Only process if it's a directory
+                if os.path.isdir(vendor_path):
+                    cached[item] = os.listdir(vendor_path)
         
         return {"cached_firmware": cached}
     
