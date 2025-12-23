@@ -186,3 +186,43 @@ class DeviceFingerprinter:
         s = re.sub(r'[^a-z0-9_]', '_', s)
         s = re.sub(r'_+', '_', s) # Remove duplicate underscores
         return s.strip('_')
+
+    def _normalize_vendor(self, vendor: str) -> str:
+        """Clean up truncated or weird vendor names from OUI lookup"""
+        if not vendor or vendor == "Unknown":
+            return "Unknown"
+        
+        v_lower = vendor.lower()
+        
+        # Common truncated/weird names map
+        normalization_map = {
+            "espressi": "Espressif",
+            "xiaomico": "Xiaomi",
+            "shenzhen": "Generic Shenzhen OEM",
+            "lavainte": "Lava International",
+            "asustekc": "ASUS",
+            "currento": "Current Options", # Example based on OUI
+            "texasins": "Texas Instruments",
+            "raspberry": "Raspberry Pi",
+            "guozi": "Guozi", # Often cameras
+            "d-linkin": "D-Link", 
+            "tp-linkt": "TP-Link",
+            "ubiquiti": "Ubiquiti",
+            "synology": "Synology",
+            "netgear": "Netgear",
+            "hewlettp": "HP",
+            "apple": "Apple",
+            "intelcor": "Intel",
+            "microsoft": "Microsoft"
+        }
+        
+        # Direct lookup
+        if vendor.lower() in normalization_map:
+            return normalization_map[vendor.lower()]
+
+        # Partial match
+        for key, val in normalization_map.items():
+            if key in v_lower:
+                return val
+                
+        return vendor
