@@ -338,32 +338,108 @@ elif page == "⚠️ Vulnerabilities":
 elif page == "📊 Traffic Monitor":
     st.title("Traffic Analysis")
     
-    col1, col2 = st.columns(2)
+    # Mode Selection
+    mode = st.radio("Mode", ["🔍 Packet Monitor", "🛑 Packet Capture (PCAP)"], horizontal=True)
     
-    with col1:
-        interface = st.selectbox("Monitor Interface", ["eth0", "wlan0"])
-    with col2:
-        duration = st.slider("Duration (seconds)", 60, 3600, 300)
-    
-    if st.button("🎬 Start Capture", use_container_width=True):
-        with st.spinner("Capturing traffic..."):
+    if mode == "🔍 Packet Monitor":
+        st.subheader("Real-time Packet Stream")
+        
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            interface = st.selectbox("Interface", ["eth0", "wlan0", "docker0"], key="live_iface")
+        with col2:
+            start_live = st.button("▶️ Start Live Stream", type="primary")
+            
+        if start_live:
+            st.info("Connecting to live stream... Click 'Stop' (top right) to end.")
+            
+            # Setup visualization containers
+            col1, col2 = st.columns(2)
+            with col1:
+                metric_ph = st.empty()
+            with col2:
+                proto_chart_ph = st.empty()
+                
+            st.markdown("### 📡 Live Packet Log")
+            table_ph = st.empty()
+            
+            # Websocket Loop
+            import asyncio
+            import websockets
+            
+            async def listen():
+                uri = f"ws://localhost:8000/api/traffic/live/{interface}"
+                packets = []
+                protocols = {}
+                start_time = time.time()
+                packet_count = 0
+                
+                try:
+                    async with websockets.connect(uri) as websocket:
+                        while True:
+                            msg = await websocket.recv()
+                            data = json.loads(msg)
+                            packet_count += 1
+                            
+                            # Update stats
+                            p = data.get('protocol', 'Unknown')
+                            protocols[p] = protocols.get(p, 0) + 1
+                            
+                            packets.insert(0, data) # Newest first
+                            packets = packets[:50] # Keep last 50
+                            
+                            # Render UI Updates every 5 packets or so to save CPU
+                            if packet_count % 3 == 0:
+                                # Metrics
+                                duration = time.time() - start_time
+                                rate = packet_count / duration if duration > 0 else 0
+                                metric_ph.metric("Packets/sec", f"{rate:.1f}", f"{packet_count} total")
+                                
+                                # Chart
+                                df_proto = pd.DataFrame(list(protocols.items()), columns=['Protocol', 'Count'])
+                                fig = px.pie(df_proto, values='Count', names='Protocol', title="Protocol Distribution")
+                                fig.update_layout(height=300, margin=dict(t=30, b=0, l=0, r=0))
+                                proto_chart_ph.plotly_chart(fig, use_container_width=True)
+                                
+                                # Table
+                                df_packets = pd.DataFrame(packets)
+                                if not df_packets.empty:
+                                    table_ph.dataframe(
+                                        df_packets[['timestamp', 'src', 'dst', 'protocol', 'length', 'info']],
+                                        use_container_width=True,
+                                        column_config={
+                                            "length": st.column_config.NumberColumn("Size (B)"),
+                                            "info": st.column_config.TextColumn("Info", width="large")
+                                        }
+                                    )
+                                    
+                except Exception as e:
+                    st.error(f"Stream error: {e}")
+                    
             try:
-                result = api.start_traffic_capture(interface, duration)
-                st.success(f"Capture started! Session: {result.get('session_id')}")
-            except Exception as e:
-                st.error(f"Capture failed: {e}")
-    
-    st.markdown("---")
-    st.subheader("Network Statistics")
-    
-    # Placeholder stats
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Packets Captured", "5,234")
-    with col2:
-        st.metric("Protocols Detected", 5)
-    with col3:
-        st.metric("Anomalies", 3)
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                loop.run_until_complete(listen())
+            except KeyboardInterrupt:
+                pass
+            
+    elif mode == "🛑 Packet Capture (PCAP)":
+        st.subheader("Background Capture")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            interface = st.selectbox("Monitor Interface", ["eth0", "wlan0"], key="pcap_iface")
+        with col2:
+            duration = st.slider("Duration (seconds)", 60, 3600, 300)
+        
+        if st.button("🎬 Start Capture", use_container_width=True):
+            with st.spinner("Capturing traffic..."):
+                try:
+                    result = api.start_traffic_capture(interface, duration)
+                    st.success(f"Capture started! Session: {result.get('session_id')}")
+                    st.info(f"File: {result.get('file')}")
+                except Exception as e:
+                    st.error(f"Capture failed: {e}")
 
 elif page == "📄 Reports":
     st.title("Report Generation")

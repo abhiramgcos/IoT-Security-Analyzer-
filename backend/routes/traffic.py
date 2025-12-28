@@ -1,8 +1,10 @@
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from typing import List, Optional
+import asyncio
 from backend.logger import Logger
+from backend.services.traffic_analyzer import RealTimeAnalyzer
 
 logger = Logger('traffic_routes').get_logger()
 router = APIRouter()
@@ -14,10 +16,35 @@ class TrafficEvent(BaseModel):
     severity: str
     description: str
 
+@router.websocket("/live/{interface}")
+async def websocket_traffic_endpoint(websocket: WebSocket, interface: str):
+    """
+    WebSocket endpoint for real-time traffic monitoring
+    """
+    await websocket.accept()
+    logger.info(f"WebSocket client connected for interface {interface}")
+    
+    analyzer = RealTimeAnalyzer()
+    
+    try:
+        async for packet in analyzer.start_capture(interface):
+            await websocket.send_json(packet)
+            
+    except WebSocketDisconnect:
+        logger.info("WebSocket client disconnected")
+    except Exception as e:
+        logger.error(f"WebSocket error: {e}")
+        try:
+           await websocket.close()
+        except:
+           pass
+    finally:
+        analyzer.stop_capture()
+
 @router.post("/start-capture/{interface}")
 async def start_traffic_capture(interface: str, duration: int = 300):
     """
-    Start capturing network traffic
+    Start capturing network traffic (Background Mode)
     
     ### Parameters:
     - **interface**: Network interface to capture on
@@ -27,15 +54,27 @@ async def start_traffic_capture(interface: str, duration: int = 300):
     Capture session ID
     """
     try:
-        logger.info(f"Starting traffic capture on {interface}")
+        from backend.services.traffic_analyzer import TrafficAnalyzer
+        analyzer = TrafficAnalyzer()
         
+        # Determine actual available interface if requested one fails
+        # For now, just pass through
+        
+        filename = analyzer.start_capture(interface, duration)
+        
+        if not filename:
+             raise HTTPException(status_code=500, detail="Failed to start capture")
+
         return {
-            "session_id": 1,
+            "session_id": int(time.time()), 
             "interface": interface,
             "duration": duration,
-            "status": "capturing"
+            "status": "capturing",
+            "file": filename
         }
     
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Capture failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))

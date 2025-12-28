@@ -1,13 +1,120 @@
 
+import asyncio
 import time
 import subprocess
 import os
 import json
-from typing import List, Dict
+import logging
+from typing import List, Dict, AsyncGenerator
 from backend.config import settings
 from backend.logger import Logger
 
 logger = Logger('traffic_analyzer').get_logger()
+
+class RealTimeAnalyzer:
+    def __init__(self):
+        self.process = None
+        self.active = False
+    
+    async def start_capture(self, interface: str) -> AsyncGenerator[Dict, None]:
+        """
+        Start real-time capture using tshark and yield simplified JSON packets.
+        """
+        if self.active:
+            logger.warning("Capture already active")
+            return
+
+        self.active = True
+        logger.info(f"Starting real-time capture on {interface}")
+        
+        # Build TShark command for JSON output
+        # -l: flush output after each packet
+        # -n: invalid output format
+        # -T ek: newline delimited JSON (easier to parse stream than standard -T json)
+        cmd = [
+            'tshark', 
+            '-i', interface,
+            '-l',
+            '-n', # Disable name resolution for speed
+            '-T', 'ek',
+            '-e', 'frame.time',
+            '-e', 'ip.src', 
+            '-e', 'ip.dst',
+            '-e', 'ipv6.src',
+            '-e', 'ipv6.dst',
+            '-e', '_ws.col.Protocol',
+            '-e', 'frame.len',
+            '-e', '_ws.col.Info',
+        ]
+        
+        try:
+            self.process = await asyncio.create_subprocess_exec(
+                *cmd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.DEVNULL
+            )
+            
+            while self.active:
+                if self.process.stdout is None:
+                    break
+                    
+                line = await self.process.stdout.readline()
+                if not line:
+                    break
+                    
+                try:
+                    line_text = line.decode().strip()
+                    if not line_text:
+                        continue
+                        
+                    packet = json.loads(line_text)
+                    
+                    # TShark EK format outputs an 'index' object first, skip it
+                    if 'index' in packet:
+                        continue
+                        
+                    layers = packet.get('layers', {})
+                    
+                    # Normalize fields
+                    src_ip = layers.get('ip_src', [None])[0] or layers.get('ipv6_src', [None])[0] or "Unknown"
+                    dst_ip = layers.get('ip_dst', [None])[0] or layers.get('ipv6_dst', [None])[0] or "Unknown"
+                    protocol = layers.get('_ws_col_Protocol', [None])[0] or "Unknown"
+                    length = layers.get('frame_len', [0])[0]
+                    info = layers.get('_ws_col_Info', [None])[0] or ""
+                    timestamp = layers.get('frame_time', [None])[0]
+                    
+                    yield {
+                        "timestamp": timestamp,
+                        "src": src_ip,
+                        "dst": dst_ip,
+                        "protocol": protocol,
+                        "length": length,
+                        "info": info
+                    }
+                    
+                except json.JSONDecodeError:
+                    continue
+                except Exception as e:
+                    logger.error(f"Error parsing packet: {e}")
+                    continue
+                    
+        except asyncio.CancelledError:
+            logger.info("Capture cancelled")
+        except Exception as e:
+            logger.error(f"Real-time capture failed: {e}")
+        finally:
+            self.stop_capture()
+
+    def stop_capture(self):
+        """Stop the background process"""
+        self.active = False
+        if self.process:
+            try:
+                self.process.terminate()
+            except Exception:
+                pass
+            self.process = None
+        logger.info("Real-time capture stopped")
 
 class TrafficAnalyzer:
     def __init__(self):
