@@ -29,13 +29,13 @@ class RealTimeAnalyzer:
         
         # Build TShark command for JSON output
         # -l: flush output after each packet
-        # -n: invalid output format
+        # -n: Disable name resolution for speed
         # -T ek: newline delimited JSON (easier to parse stream than standard -T json)
         cmd = [
             'tshark', 
             '-i', interface,
             '-l',
-            '-n', # Disable name resolution for speed
+            '-n',
             '-T', 'ek',
             '-e', 'frame.time',
             '-e', 'ip.src', 
@@ -47,19 +47,38 @@ class RealTimeAnalyzer:
             '-e', '_ws.col.Info',
         ]
         
+        logger.info(f"Running command: {' '.join(cmd)}")
+        
         try:
             self.process = await asyncio.create_subprocess_exec(
                 *cmd,
                 stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.DEVNULL
+                stderr=asyncio.subprocess.PIPE  # Capture stderr to see errors
             )
             
+            logger.info(f"TShark process started with PID: {self.process.pid}")
+            
+            # Check if process started successfully
+            await asyncio.sleep(0.5)
+            if self.process.returncode is not None:
+                # Process already exited
+                stderr = await self.process.stderr.read()
+                error_msg = stderr.decode().strip()
+                logger.error(f"TShark exited immediately with code {self.process.returncode}: {error_msg}")
+                raise RuntimeError(f"TShark failed to start: {error_msg}")
+            
+            packet_count = 0
             while self.active:
                 if self.process.stdout is None:
+                    logger.error("Process stdout is None")
                     break
                     
                 line = await self.process.stdout.readline()
                 if not line:
+                    # Check if process died
+                    if self.process.returncode is not None:
+                        stderr = await self.process.stderr.read()
+                        logger.error(f"TShark process died: {stderr.decode()}")
                     break
                     
                 try:
@@ -83,6 +102,10 @@ class RealTimeAnalyzer:
                     info = layers.get('_ws_col_Info', [None])[0] or ""
                     timestamp = layers.get('frame_time', [None])[0]
                     
+                    packet_count += 1
+                    if packet_count % 100 == 0:
+                        logger.info(f"Processed {packet_count} packets")
+                    
                     yield {
                         "timestamp": timestamp,
                         "src": src_ip,
@@ -92,7 +115,8 @@ class RealTimeAnalyzer:
                         "info": info
                     }
                     
-                except json.JSONDecodeError:
+                except json.JSONDecodeError as e:
+                    logger.warning(f"JSON decode error: {e}, line: {line_text[:100]}")
                     continue
                 except Exception as e:
                     logger.error(f"Error parsing packet: {e}")
@@ -102,6 +126,9 @@ class RealTimeAnalyzer:
             logger.info("Capture cancelled")
         except Exception as e:
             logger.error(f"Real-time capture failed: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            raise  # Re-raise so the WebSocket handler can catch it
         finally:
             self.stop_capture()
 

@@ -363,19 +363,27 @@ elif page == "📊 Traffic Monitor":
             st.markdown("### 📡 Live Packet Log")
             table_ph = st.empty()
             
+            
             # Websocket Loop
             import asyncio
             import websockets
             
             async def listen():
-                uri = f"ws://localhost:8000/api/traffic/live/{interface}"
+                # Use the same base URL as API client, convert http to ws
+                api_base = os.getenv("API_URL", "http://localhost:8000")
+                ws_base = api_base.replace("http://", "ws://").replace("https://", "wss://")
+                uri = f"{ws_base}/api/traffic/live/{interface}"
+                
+                st.info(f"Connecting to: {uri}")
+                
                 packets = []
                 protocols = {}
                 start_time = time.time()
                 packet_count = 0
                 
                 try:
-                    async with websockets.connect(uri) as websocket:
+                    async with websockets.connect(uri, ping_timeout=20, close_timeout=10) as websocket:
+                        st.success("✅ Connected! Streaming packets...")
                         while True:
                             msg = await websocket.recv()
                             data = json.loads(msg)
@@ -413,15 +421,23 @@ elif page == "📊 Traffic Monitor":
                                         }
                                     )
                                     
+                except websockets.exceptions.WebSocketException as e:
+                    st.error(f"WebSocket error: {e}")
+                    st.info("This may be due to:\n- Backend not running\n- Interface doesn't exist\n- No traffic on interface\n- Insufficient permissions (requires root/NET_ADMIN)")
                 except Exception as e:
                     st.error(f"Stream error: {e}")
+                    import traceback
+                    st.code(traceback.format_exc())
                     
             try:
                 loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)
                 loop.run_until_complete(listen())
             except KeyboardInterrupt:
-                pass
+                st.info("Stream stopped by user")
+            except Exception as e:
+                st.error(f"Failed to start stream: {e}")
+            
             
     elif mode == "🛑 Packet Capture (PCAP)":
         st.subheader("Background Capture")

@@ -606,3 +606,52 @@
 2025-12-28 05:31:50,695 - scanner_routes - INFO - Fetched 11 devices from DB
 2025-12-28 05:31:50,695 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
 2025-12-28 05:31:50,695 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 15:16:47,514 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-28 15:18:58,879 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-28 15:18:58,879 - main - INFO - Backend API initialized
+2025-12-28 15:19:09,886 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 15:19:09,886 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 15:19:09,886 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 15:19:09,889 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 15:19:13,019 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 15:19:13,019 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 15:19:13,019 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 15:19:17,359 - traffic_routes - INFO - WebSocket client connected for interface eth0
+2025-12-28 15:19:17,359 - traffic_analyzer - INFO - Starting real-time capture on eth0
+2025-12-28 15:19:18,085 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:19:18,085 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:19:29,971 - traffic_analyzer - INFO - Starting tshark capture on eth0 for 300s
+2025-12-28 15:19:29,973 - traffic_routes - ERROR - Capture failed: name 'time' is not defined
+2025-12-28 15:19:45,670 - traffic_routes - INFO - WebSocket client connected for interface eth0
+2025-12-28 15:19:45,670 - traffic_analyzer - INFO - Starting real-time capture on eth0
+2025-12-28 15:19:45,801 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:19:45,802 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:22:10,276 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-28 15:22:46,718 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-28 15:22:46,718 - main - INFO - Backend API initialized
+2025-12-28 15:22:56,367 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 15:22:56,367 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 15:22:56,367 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 15:22:56,370 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 15:23:01,355 - traffic_routes - INFO - WebSocket client connected for interface eth0
+2025-12-28 15:23:01,355 - traffic_analyzer - INFO - Starting real-time capture on eth0
+2025-12-28 15:23:01,494 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:23:01,494 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:23:01,494 - traffic_routes - INFO - Analyzer stopped
+2025-12-28 15:23:17,809 - traffic_routes - INFO - WebSocket client connected for interface wlan0
+2025-12-28 15:23:17,810 - traffic_analyzer - INFO - Starting real-time capture on wlan0
+2025-12-28 15:23:17,951 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:23:17,951 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:23:17,951 - traffic_routes - INFO - Analyzer stopped
+2025-12-28 15:23:25,957 - traffic_routes - INFO - WebSocket client connected for interface docker0
+2025-12-28 15:23:25,957 - traffic_analyzer - INFO - Starting real-time capture on docker0
+2025-12-28 15:23:33,525 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 15:23:33,526 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 15:23:33,526 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 15:23:33,528 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 15:23:43,980 - traffic_analyzer - INFO - Starting tshark capture on wlan0 for 300s
+2025-12-28 15:24:04,920 - traffic_routes - INFO - WebSocket client connected for interface wlan0
+2025-12-28 15:24:04,920 - traffic_analyzer - INFO - Starting real-time capture on wlan0
+2025-12-28 15:24:05,065 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:24:05,065 - traffic_analyzer - INFO - Real-time capture stopped
+2025-12-28 15:24:05,065 - traffic_routes - INFO - Analyzer stopped

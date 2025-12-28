@@ -1,8 +1,11 @@
 
+
 from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from typing import List, Optional
 import asyncio
+import time
+import traceback
 from backend.logger import Logger
 from backend.services.traffic_analyzer import RealTimeAnalyzer
 
@@ -27,19 +30,26 @@ async def websocket_traffic_endpoint(websocket: WebSocket, interface: str):
     analyzer = RealTimeAnalyzer()
     
     try:
+        packet_count = 0
         async for packet in analyzer.start_capture(interface):
             await websocket.send_json(packet)
+            packet_count += 1
+            
+            if packet_count % 100 == 0:
+                logger.info(f"Sent {packet_count} packets to client")
             
     except WebSocketDisconnect:
-        logger.info("WebSocket client disconnected")
+        logger.info(f"WebSocket client disconnected after {packet_count} packets")
     except Exception as e:
         logger.error(f"WebSocket error: {e}")
+        logger.error(traceback.format_exc())
         try:
-           await websocket.close()
+           await websocket.close(code=1011, reason=str(e))
         except:
            pass
     finally:
         analyzer.stop_capture()
+        logger.info("Analyzer stopped")
 
 @router.post("/start-capture/{interface}")
 async def start_traffic_capture(interface: str, duration: int = 300):
