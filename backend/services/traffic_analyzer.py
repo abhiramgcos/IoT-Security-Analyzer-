@@ -108,7 +108,7 @@ class TrafficAnalyzer:
                 protocols['TCP'] = protocols.get('TCP', 0) + 1
             if 'udp' in line.lower():
                 protocols['UDP'] = protocols.get('UDP', 0) + 1
-           if 'http' in line.lower():
+            if 'http' in line.lower():
                 protocols['HTTP'] = protocols.get('HTTP', 0) + 1
             if 'dns' in line.lower():
                 protocols['DNS'] = protocols.get('DNS', 0) + 1

@@ -356,3 +356,116 @@
 2025-12-28 04:50:41,577 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
 2025-12-28 04:50:41,577 - scanner_routes - INFO - Returning 11/11 valid devices
 2025-12-28 04:50:41,579 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 04:59:11,853 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 04:59:11,853 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 04:59:11,853 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 04:59:11,856 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 04:59:15,784 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 04:59:15,785 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 04:59:15,785 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 04:59:20,393 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 04:59:20,393 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 04:59:20,393 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 04:59:45,193 - firmware_routes - INFO - Fetching firmware for lava-blaze.lan A25
+2025-12-28 04:59:45,194 - firmware_fetcher - INFO - Downloading firmware for lava-blaze.lan A25...
+2025-12-28 04:59:49,091 - firmware_routes - INFO - Fetching firmware for lava-blaze.lan A25
+2025-12-28 04:59:49,091 - firmware_fetcher - INFO - Using cached firmware: ./data/firmware/lava-blaze.lan/A25_latest.bin
+2025-12-28 04:59:58,739 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 04:59:58,739 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 04:59:58,739 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 04:59:58,745 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:00:02,574 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:00:02,574 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:00:02,574 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:00:02,579 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:00:04,392 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:00:04,392 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:00:04,392 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:00:04,398 - cve_scanner - INFO - Scanning for CVEs: XiaomiCo Unknown None (CPE: cpe:2.3:h:xiaomico:*:*:*:*:*:*:*:*:*)
+2025-12-28 05:00:05,793 - cve_scanner - ERROR - NVD API Error: 404
+2025-12-28 05:00:05,802 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:04:01,680 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:04:01,680 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:04:01,680 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:04:01,683 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:22:48,185 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-28 05:22:49,108 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-28 05:22:49,108 - main - INFO - Backend API initialized
+2025-12-28 05:23:39,324 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:23:39,324 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:23:39,324 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:23:39,327 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:23:42,497 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:23:42,498 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:23:42,498 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:23:46,041 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:23:46,041 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:23:46,041 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:23:46,047 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:23:47,510 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:23:47,510 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:23:47,510 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:23:47,518 - cve_scanner - INFO - Scanning for CVEs: currento Unknown None (CPE: cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*)
+2025-12-28 05:23:48,771 - cve_scanner - ERROR - NVD API Error: 404
+2025-12-28 05:23:48,781 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:23:53,109 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:23:53,110 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:23:53,110 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:23:53,115 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:23:55,403 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:23:55,403 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:23:55,403 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:23:55,405 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:24:08,349 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2025-12-28 05:25:09,018 - main - INFO - === IoT Security Analyzer Starting ===
+2025-12-28 05:25:09,018 - main - INFO - Backend API initialized
+2025-12-28 05:25:12,493 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:12,493 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:12,493 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:12,496 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:14,383 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:14,383 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:14,383 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:14,389 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:19,238 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:19,238 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:19,238 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:19,241 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:20,953 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:20,954 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:20,954 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:20,959 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:23,125 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:23,126 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:23,126 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:23,135 - cve_scanner - INFO - Scanning for CVEs: currento Unknown None (CPE: cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*)
+2025-12-28 05:25:24,348 - cve_scanner - ERROR - NVD API Error: 404
+2025-12-28 05:25:24,357 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:29,586 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:29,586 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:29,586 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:29,594 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:33,302 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:33,302 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:33,302 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:33,308 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:34,165 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:34,165 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:34,166 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:34,168 - cve_scanner - INFO - Scanning for CVEs: XiaomiCo Unknown None (CPE: cpe:2.3:h:xiaomico:*:*:*:*:*:*:*:*:*)
+2025-12-28 05:25:35,217 - cve_scanner - ERROR - NVD API Error: 404
+2025-12-28 05:25:35,227 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:39,314 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:39,315 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:39,315 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:39,321 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:41,680 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:41,680 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:41,680 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:41,685 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 40, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2025-12-28 05:25:43,455 - scanner_routes - INFO - Fetched 11 devices from DB
+2025-12-28 05:25:43,455 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2025-12-28 05:25:43,455 - scanner_routes - INFO - Returning 11/11 valid devices
+2025-12-28 05:25:43,458 - cve_scanner - INFO - Scanning for CVEs: Unknown Unknown None (CPE: None)
+2025-12-28 05:25:45,049 - cve_scanner - INFO - Found 20 CVEs
+2025-12-28 05:25:45,129 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}

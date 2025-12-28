@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import requests
 import json
 import os
+import time
 from utils.api_client import APIClient
 
 # Page configuration

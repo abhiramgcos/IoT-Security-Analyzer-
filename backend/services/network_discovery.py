@@ -1,6 +1,8 @@
+import time
 import nmap
 import socket
 from typing import List, Dict
+import traceback
 from backend.logger import Logger
 from backend.config import settings
 from backend.database import Database
@@ -105,6 +107,7 @@ class NetworkScanner:
             
         except Exception as e:
             logger.error(f"Scan failed: {e}")
+            logger.error(traceback.format_exc())
             return []
     
     # Helper for legacy calls if any
