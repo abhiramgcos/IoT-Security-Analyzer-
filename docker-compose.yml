@@ -61,7 +61,7 @@ services:
     depends_on:
       - backend
 
-# No bridge networks needed for host mode
+  # No bridge networks needed for host mode
 
   # Traffic Analyzer Services
   traffic-analyzer-backend:
@@ -71,11 +71,15 @@ services:
     container_name: iot-traffic-analyzer
     network_mode: "host"
     environment:
-      - SNIFF_INTERFACE=eth0
+      - SNIFF_INTERFACE=wlp0s20f3
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - ./traffic_analyzer/suricata_logs:/var/log/suricata
       - ./traffic_analyzer:/app
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    privileged: true
     restart: unless-stopped
     depends_on:
       - suricata
@@ -90,4 +94,3 @@ services:
       - ./traffic_analyzer/suricata_config/rules:/etc/suricata/rules
     command: suricata -c /etc/suricata/suricata.yaml -i eth0
     restart: unless-stopped
-

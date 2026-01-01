@@ -9,6 +9,7 @@ import json
 import os
 import time
 from utils.api_client import APIClient
+from utils.traffic_client import TrafficClient
 
 # Page configuration
 st.set_page_config(
@@ -18,8 +19,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Initialize API client
+# Initialize API clients
 api = APIClient(base_url=os.getenv("API_URL", "http://localhost:8000"))
+traffic_api = TrafficClient(base_url=os.getenv("TRAFFIC_API_URL", "http://localhost:8001"))
 
 # Custom CSS
 st.markdown("""
@@ -369,12 +371,12 @@ elif page == "📊 Traffic Monitor":
             import websockets
             
             async def listen():
-                # Use the same base URL as API client, convert http to ws
-                api_base = os.getenv("API_URL", "http://localhost:8000")
-                ws_base = api_base.replace("http://", "ws://").replace("https://", "wss://")
-                uri = f"{ws_base}/api/traffic/live/{interface}"
+                # Connect to Traffic Analyzer Service (Port 8001)
+                # We assume if browser can reach localhost:8501, it can reach localhost:8001
+                # In real prod, this needs a reverse proxy.
+                ws_uri = "ws://localhost:8001/api/v1/ws/live"
                 
-                st.info(f"Connecting to: {uri}")
+                st.info(f"Connecting to: {ws_uri}")
                 
                 packets = []
                 protocols = {}
@@ -382,7 +384,7 @@ elif page == "📊 Traffic Monitor":
                 packet_count = 0
                 
                 try:
-                    async with websockets.connect(uri, ping_timeout=20, close_timeout=10) as websocket:
+                    async with websockets.connect(ws_uri, ping_timeout=20, close_timeout=10) as websocket:
                         st.success("✅ Connected! Streaming packets...")
                         while True:
                             msg = await websocket.recv()
@@ -437,6 +439,39 @@ elif page == "📊 Traffic Monitor":
                 st.info("Stream stopped by user")
             except Exception as e:
                 st.error(f"Failed to start stream: {e}")
+
+        st.markdown("---")
+        st.subheader("🛡️ IDS Alerts (Suricata)")
+        
+        if st.button("🔄 Refresh Alerts"):
+            st.rerun()
+            
+        alerts = traffic_api.get_alerts()
+        if alerts:
+            # Convert to DataFrame
+            df_alerts = pd.DataFrame(alerts)
+            
+            # If timestamp exists, convert it
+            if 'timestamp' in df_alerts.columns:
+                df_alerts['timestamp'] = pd.to_datetime(df_alerts['timestamp'])
+            
+            # Style the severity column
+            def color_severity(val):
+                color = 'green'
+                if val == 'High' or val == 1: color = 'red'
+                elif val == 'Medium' or val == 2: color = 'orange'
+                return f'color: {color}'
+            
+            st.dataframe(
+                df_alerts,
+                use_container_width=True,
+                hide_index=True
+            )
+        else:
+            if traffic_api.health_check():
+                st.info("No alerts detected yet.")
+            else:
+                st.warning("⚠️ Access to Traffic Analyzer Service (Port 8001) seems down.")
             
             
     elif mode == "🛑 Packet Capture (PCAP)":

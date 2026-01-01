@@ -900,3 +900,74 @@ tshark: There is no device named "wlan0".
 2026-01-01 19:58:16,623 - traffic_analyzer - INFO - Real-time capture stopped
 2026-01-01 19:58:16,623 - traffic_routes - INFO - Analyzer stopped
 2026-01-01 19:58:28,072 - traffic_analyzer - INFO - Starting tshark capture on eth0 for 300s
+2026-01-01 20:06:04,358 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:06:04,358 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:06:04,358 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:06:04,361 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:07:32,145 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:07:32,145 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:07:32,145 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:07:32,147 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:09:14,053 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:09:14,053 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:09:14,053 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:09:14,058 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:09:40,186 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:09:40,187 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:09:40,187 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:09:40,189 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:11:45,089 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:11:45,089 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:11:45,089 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:11:45,092 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:13:11,528 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:13:11,528 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:13:11,529 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:13:11,537 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:14:12,494 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:14:12,494 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:14:12,494 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:14:12,497 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:15:17,347 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-01 20:15:28,183 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-01 20:15:28,184 - main - INFO - Backend API initialized
+2026-01-01 20:15:35,236 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:15:35,236 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:15:35,236 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:15:35,240 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:18:00,008 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:18:00,008 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:18:00,008 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:18:00,013 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:19:19,658 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-01 20:19:30,482 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-01 20:19:30,482 - main - INFO - Backend API initialized
+2026-01-01 20:19:35,936 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:19:35,937 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:19:35,937 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:19:35,940 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:35:49,134 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-01 20:36:05,639 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-01 20:36:05,639 - main - INFO - Backend API initialized
+2026-01-01 20:37:48,927 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:37:48,927 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:37:48,927 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:37:48,932 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:37:48,987 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:37:48,987 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:37:48,987 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:37:48,993 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:40:20,520 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-01 20:40:31,408 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-01 20:40:31,408 - main - INFO - Backend API initialized
+2026-01-01 20:40:57,694 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:40:57,694 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:40:57,694 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:40:57,699 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 20:43:12,081 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-01 20:43:23,187 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-01 20:43:23,187 - main - INFO - Backend API initialized
+2026-01-01 20:43:30,891 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 20:43:30,891 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 20:43:30,891 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 20:43:30,896 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
