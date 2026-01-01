@@ -847,3 +847,56 @@ tshark: There is no device named "wlan0".
 2025-12-29 19:41:46,926 - scanner_routes - INFO - Returning 11/11 valid devices
 2025-12-29 19:41:46,930 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
 2025-12-29 20:48:37,254 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-01 19:56:39,677 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-01 19:56:39,677 - main - INFO - Backend API initialized
+2026-01-01 19:57:28,502 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 19:57:28,503 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 19:57:28,503 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 19:57:28,507 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 19:57:28,763 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-01 19:57:28,763 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-01 19:57:28,763 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-01 19:57:28,767 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-01 19:58:16,119 - traffic_routes - INFO - WebSocket client connected for interface wlan0
+2026-01-01 19:58:16,119 - traffic_analyzer - INFO - Starting real-time capture on wlan0
+2026-01-01 19:58:16,119 - traffic_analyzer - INFO - Running command: tshark -i wlan0 -l -n -T ek -e frame.time -e ip.src -e ip.dst -e ipv6.src -e ipv6.dst -e _ws.col.Protocol -e frame.len -e _ws.col.Info
+2026-01-01 19:58:16,121 - traffic_analyzer - INFO - TShark process started with PID: 31
+2026-01-01 19:58:16,622 - traffic_analyzer - ERROR - TShark exited immediately with code 1: Running as user "root" and group "root". This could be dangerous.
+Capturing on 'wlan0'
+tshark: There is no device named "wlan0".
+(No such device exists)
+0 packets captured
+2026-01-01 19:58:16,622 - traffic_analyzer - ERROR - Real-time capture failed: TShark failed to start: Running as user "root" and group "root". This could be dangerous.
+Capturing on 'wlan0'
+tshark: There is no device named "wlan0".
+(No such device exists)
+0 packets captured
+2026-01-01 19:58:16,622 - traffic_analyzer - ERROR - Traceback (most recent call last):
+  File "/app/backend/services/traffic_analyzer.py", line 68, in start_capture
+    raise RuntimeError(f"TShark failed to start: {error_msg}")
+RuntimeError: TShark failed to start: Running as user "root" and group "root". This could be dangerous.
+Capturing on 'wlan0'
+tshark: There is no device named "wlan0".
+(No such device exists)
+0 packets captured
+
+2026-01-01 19:58:16,623 - traffic_analyzer - INFO - Real-time capture stopped
+2026-01-01 19:58:16,623 - traffic_routes - ERROR - WebSocket error: TShark failed to start: Running as user "root" and group "root". This could be dangerous.
+Capturing on 'wlan0'
+tshark: There is no device named "wlan0".
+(No such device exists)
+0 packets captured
+2026-01-01 19:58:16,623 - traffic_routes - ERROR - Traceback (most recent call last):
+  File "/app/backend/routes/traffic.py", line 34, in websocket_traffic_endpoint
+    async for packet in analyzer.start_capture(interface):
+  File "/app/backend/services/traffic_analyzer.py", line 68, in start_capture
+    raise RuntimeError(f"TShark failed to start: {error_msg}")
+RuntimeError: TShark failed to start: Running as user "root" and group "root". This could be dangerous.
+Capturing on 'wlan0'
+tshark: There is no device named "wlan0".
+(No such device exists)
+0 packets captured
+
+2026-01-01 19:58:16,623 - traffic_analyzer - INFO - Real-time capture stopped
+2026-01-01 19:58:16,623 - traffic_routes - INFO - Analyzer stopped
+2026-01-01 19:58:28,072 - traffic_analyzer - INFO - Starting tshark capture on eth0 for 300s

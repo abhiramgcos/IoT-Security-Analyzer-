@@ -17,7 +17,11 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --user --no-cache-dir -r requirements.txt
+# Upgrade pip
+RUN pip install --user --no-cache-dir --upgrade pip
+
+# Install Python dependencies
+RUN pip install --user --no-cache-dir --default-timeout=3000 --retries 20 -r requirements.txt
 
 # Runtime stage
 FROM python:3.10-slim

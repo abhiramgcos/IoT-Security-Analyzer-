@@ -11,7 +11,14 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Upgrade pip
+RUN pip install --no-cache-dir --upgrade pip
+
+# Install Frontend-specific heavy dependencies
+RUN pip install --no-cache-dir --default-timeout=3000 --retries 20 streamlit plotly
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --default-timeout=3000 --retries 20 -r requirements.txt
 
 # Copy frontend code
 COPY frontend /app/frontend
