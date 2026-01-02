@@ -17,3 +17,4 @@ soc_platform/data/firmware/*
 !soc_platform/data/firmware/.gitkeep
 soc_platform/data/suricata-logs/*
 !soc_platform/data/suricata-logs/.gitkeep
+soc_platform/data/pcaps/capture_20260102_103154.pcap
