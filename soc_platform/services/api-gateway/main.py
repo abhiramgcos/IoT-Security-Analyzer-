@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import asyncio
 import logging
+import json
 from datetime import datetime
 from typing import List, Optional
 from contextlib import asynccontextmanager
@@ -129,13 +130,21 @@ async def websocket_live(websocket: WebSocket):
             # Keep connection alive and handle client messages
             data = await websocket.receive_text()
             
-            # Echo back for now (can add command handling)
-            await websocket.send_json({
-                "type": "ack",
-                "message": "Connected",
-                "timestamp": datetime.utcnow().isoformat()
-            })
-            
+            try:
+                msg = json.loads(data)
+                
+                # If message is traffic batch from traffic-gateway, broadcast to UI clients
+                if msg.get("type") == "traffic_batch":
+                    # Optimization: Don't broadcast everything if too fast?
+                    # For now, just broadcast
+                    await ws_manager.broadcast(msg)
+                
+                elif msg.get("type") == "ping":
+                    await ws_manager.send_personal({"type": "pong"}, websocket)
+                    
+            except json.JSONDecodeError:
+                pass
+                
     except WebSocketDisconnect:
         ws_manager.disconnect(websocket)
         logger.info("WebSocket client disconnected")

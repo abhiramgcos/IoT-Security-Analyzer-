@@ -182,7 +182,7 @@ services:
     container_name: soc-ui-dashboard
     environment:
       - API_URL=http://localhost:8000
-      - WS_URL=ws://localhost:8000
+      - WS_URL=ws://127.0.0.1:8000
     ports:
       - "3000:3000"
     volumes:
