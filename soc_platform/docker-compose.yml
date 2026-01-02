@@ -1,0 +1,206 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # Core Infrastructure
+  # ============================================
+
+  # PostgreSQL with TimescaleDB
+  postgres:
+    image: timescale/timescaledb:latest-pg15
+    container_name: soc-postgres
+    environment:
+      POSTGRES_DB: iot_soc
+      POSTGRES_USER: socuser
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U socuser -d iot_soc" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: soc-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # Elasticsearch (PCAP Indexing)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: soc-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elastic-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+  # ============================================
+  # API Gateway
+  # ============================================
+
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    container_name: soc-api-gateway
+    network_mode: "host"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://socuser:${POSTGRES_PASSWORD:-changeme}@localhost:5432/iot_soc
+      - REDIS_URL=redis://localhost:6379
+      - ELASTIC_URL=http://localhost:9200
+      - NVD_API_KEY=${NVD_API_KEY}
+    volumes:
+      - ./data/pcaps:/app/pcaps
+      - ./data/firmware:/app/firmware
+      - ./services/api-gateway:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ============================================
+  # Traffic Monitoring
+  # ============================================
+
+  traffic-gateway:
+    build:
+      context: ./services/traffic-gateway
+      dockerfile: Dockerfile
+    container_name: soc-traffic-gateway
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BIND_SERVICE
+    privileged: true
+    environment:
+      - MODE=${TRAFFIC_MODE:-monitor} # monitor or gateway
+      - INTERFACE=${MONITOR_INTERFACE:-auto}
+      - DATABASE_URL=postgresql://socuser:${POSTGRES_PASSWORD:-changeme}@localhost:5432/iot_soc
+      - REDIS_URL=redis://localhost:6379
+    volumes:
+      - ./data/pcaps:/pcaps
+      - ./services/traffic-gateway:/app
+    restart: unless-stopped
+
+  # Suricata IDS
+  suricata:
+    image: jasonish/suricata:latest
+    container_name: soc-suricata
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./data/pcaps:/pcaps:ro
+      - ./config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
+      - ./config/suricata/rules:/etc/suricata/rules:ro
+      - ./data/suricata-logs:/var/log/suricata
+    command: >
+      sh -c " suricata -c /etc/suricata/suricata.yaml -i ${MONITOR_INTERFACE:-eth0} --init-errors-fatal "
+    restart: unless-stopped
+
+  # ============================================
+  # Device Discovery & Analysis
+  # ============================================
+
+  device-scanner:
+    build:
+      context: ./services/device-scanner
+      dockerfile: Dockerfile
+    container_name: soc-device-scanner
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - DATABASE_URL=postgresql://socuser:${POSTGRES_PASSWORD:-changeme}@localhost:5432/iot_soc
+      - REDIS_URL=redis://localhost:6379
+      - SCAN_INTERVAL=${SCAN_INTERVAL:-300}
+    volumes:
+      - ./services/device-scanner:/app
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
+  # Firmware Analyzer
+  firmware-analyzer:
+    build:
+      context: ./services/firmware-analyzer
+      dockerfile: Dockerfile
+    container_name: soc-firmware-analyzer
+    environment:
+      - DATABASE_URL=postgresql://socuser:${POSTGRES_PASSWORD:-changeme}@localhost:5432/iot_soc
+      - NVD_API_KEY=${NVD_API_KEY}
+      - REDIS_URL=redis://localhost:6379
+    volumes:
+      - ./data/firmware:/firmware
+      - ./services/firmware-analyzer:/app
+      - /var/run/docker.sock:/var/run/docker.sock # For Firmadyne
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
+  # ============================================
+  # User Interface
+  # ============================================
+
+  ui-dashboard:
+    build:
+      context: ./services/ui-dashboard
+      dockerfile: Dockerfile
+    container_name: soc-ui-dashboard
+    environment:
+      - API_URL=http://localhost:8000
+      - WS_URL=ws://localhost:8000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./services/ui-dashboard:/app
+      - /app/node_modules # Prevent overwriting node_modules
+    depends_on:
+      - api-gateway
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  elastic-data:
+    driver: local
+
+networks:
+  default:
+    name: soc-network
+    driver: bridge

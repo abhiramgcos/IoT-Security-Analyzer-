@@ -971,3 +971,11 @@ tshark: There is no device named "wlan0".
 2026-01-01 20:43:30,891 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
 2026-01-01 20:43:30,891 - scanner_routes - INFO - Returning 11/11 valid devices
 2026-01-01 20:43:30,896 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-02 06:49:28,341 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-02 06:49:40,014 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-02 06:49:40,014 - main - INFO - Backend API initialized
+2026-01-02 06:49:49,769 - scanner_routes - INFO - Fetched 11 devices from DB
+2026-01-02 06:49:49,769 - scanner_routes - INFO - Sample device (first): {'id': 56, 'ip_address': '192.168.1.1', 'mac_address': '14:A7:2B:36:43:C7', 'hostname': 'Unknown', 'device_type': 'Router', 'manufacturer': 'currento', 'model': 'Unknown', 'open_ports': [21, 53, 80, 443], 'first_seen': '2025-12-22T22:46:13.985722', 'last_seen': '2025-12-22T22:46:13.985722', 'status': 'online', 'cpe': 'cpe:2.3:h:currento:*:*:*:*:*:*:*:*:*'}
+2026-01-02 06:49:49,769 - scanner_routes - INFO - Returning 11/11 valid devices
+2026-01-02 06:49:49,776 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 60, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-02 09:28:04,510 - main - INFO - === IoT Security Analyzer Shutting Down ===

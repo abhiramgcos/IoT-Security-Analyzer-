@@ -72,7 +72,6 @@ services:
     network_mode: "host"
     environment:
       - SNIFF_INTERFACE=wlp0s20f3
-      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - ./traffic_analyzer/suricata_logs:/var/log/suricata
       - ./traffic_analyzer:/app
