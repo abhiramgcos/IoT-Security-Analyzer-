@@ -48,7 +48,12 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify exact origins
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost",
+        "http://localhost:8000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -171,9 +176,10 @@ async def not_found_handler(request, exc):
 @app.exception_handler(500)
 async def server_error_handler(request, exc):
     logger.error(f"Internal server error: {exc}")
+    # DEBUG: Return actual error
     return JSONResponse(
         status_code=500,
-        content={"error": "Internal server error"}
+        content={"error": f"Internal server error: {str(exc)}"}
     )
 
 if __name__ == "__main__":
