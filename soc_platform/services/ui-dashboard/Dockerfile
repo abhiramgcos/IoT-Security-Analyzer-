@@ -1,13 +1,17 @@
+# Build stage
 FROM node:18-alpine
 
 WORKDIR /app
 
 # Install dependencies
-RUN npm install -g serve
+COPY package.json package-lock.json* ./
+RUN npm install
 
-# Create placeholder index.html
-RUN echo '<html><body><h1>SOC IoT Platform UI</h1><p>Dashboard coming soon...</p></body></html>' > index.html
+# Copy source
+COPY . .
 
+# Expose port (Vite default is 5173 but we config 3000)
 EXPOSE 3000
 
-CMD ["serve", "-s", ".", "-l", "3000"]
+# Start dev server
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

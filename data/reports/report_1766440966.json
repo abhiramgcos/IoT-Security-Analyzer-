@@ -1,0 +1,192 @@
+{
+  "generated_at": "2025-12-22T22:02:46.793116",
+  "subnet": "192.168.1.0/24",
+  "options": {
+    "include_firmware": true,
+    "include_traffic": true,
+    "include_recommendations": true
+  },
+  "summary": {
+    "devices_found": 11,
+    "vulnerabilities": 0,
+    "health_score": 100
+  },
+  "devices": [
+    {
+      "id": 12,
+      "ip_address": "192.168.1.1",
+      "mac_address": "Unknown",
+      "hostname": "Unknown",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [
+        21,
+        53,
+        80,
+        443
+      ],
+      "first_seen": "2025-12-22T21:50:28.447394",
+      "last_seen": "2025-12-22T21:50:28.447394",
+      "status": "online"
+    },
+    {
+      "id": 13,
+      "ip_address": "192.168.1.12",
+      "mac_address": "Unknown",
+      "hostname": "room-1-relay.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [],
+      "first_seen": "2025-12-22T21:50:29.412222",
+      "last_seen": "2025-12-22T21:50:29.412222",
+      "status": "online"
+    },
+    {
+      "id": 14,
+      "ip_address": "192.168.1.128",
+      "mac_address": "Unknown",
+      "hostname": "Unknown",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [],
+      "first_seen": "2025-12-22T21:50:32.248193",
+      "last_seen": "2025-12-22T21:50:32.248193",
+      "status": "online"
+    },
+    {
+      "id": 15,
+      "ip_address": "192.168.1.13",
+      "mac_address": "Unknown",
+      "hostname": "lava-blaze.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [],
+      "first_seen": "2025-12-22T21:50:35.401231",
+      "last_seen": "2025-12-22T21:50:35.401231",
+      "status": "online"
+    },
+    {
+      "id": 16,
+      "ip_address": "192.168.1.15",
+      "mac_address": "Unknown",
+      "hostname": "cos777nnn-nitro5.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [
+        8000
+      ],
+      "first_seen": "2025-12-22T21:50:36.910809",
+      "last_seen": "2025-12-22T21:50:36.910809",
+      "status": "online"
+    },
+    {
+      "id": 17,
+      "ip_address": "192.168.1.3",
+      "mac_address": "Unknown",
+      "hostname": "i2214.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [],
+      "first_seen": "2025-12-22T21:50:40.452993",
+      "last_seen": "2025-12-22T21:50:40.452993",
+      "status": "online"
+    },
+    {
+      "id": 18,
+      "ip_address": "192.168.1.4",
+      "mac_address": "Unknown",
+      "hostname": "tp-link.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [
+        22,
+        80,
+        1900
+      ],
+      "first_seen": "2025-12-22T21:50:46.337939",
+      "last_seen": "2025-12-22T21:50:46.337939",
+      "status": "online"
+    },
+    {
+      "id": 19,
+      "ip_address": "192.168.1.46",
+      "mac_address": "Unknown",
+      "hostname": "sensor-1.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [],
+      "first_seen": "2025-12-22T21:50:47.324864",
+      "last_seen": "2025-12-22T21:50:47.324864",
+      "status": "online"
+    },
+    {
+      "id": 20,
+      "ip_address": "192.168.1.5",
+      "mac_address": "Unknown",
+      "hostname": "mi-router.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [
+        80,
+        8443
+      ],
+      "first_seen": "2025-12-22T21:50:58.988799",
+      "last_seen": "2025-12-22T21:50:58.988799",
+      "status": "online"
+    },
+    {
+      "id": 21,
+      "ip_address": "192.168.1.50",
+      "mac_address": "Unknown",
+      "hostname": "anoop-nvidia.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [
+        22,
+        111,
+        631,
+        3389
+      ],
+      "first_seen": "2025-12-22T21:51:00.438792",
+      "last_seen": "2025-12-22T21:51:00.438792",
+      "status": "online"
+    },
+    {
+      "id": 22,
+      "ip_address": "192.168.1.9",
+      "mac_address": "Unknown",
+      "hostname": "truenas.lan",
+      "device_type": "Unknown",
+      "manufacturer": "Unknown",
+      "model": "Unknown",
+      "open_ports": [
+        53,
+        80,
+        111,
+        139,
+        443,
+        445,
+        5357,
+        5432,
+        8443
+      ],
+      "first_seen": "2025-12-22T21:51:01.915879",
+      "last_seen": "2025-12-22T21:51:01.915879",
+      "status": "online"
+    }
+  ],
+  "recommendations": [
+    "Maintain current security posture",
+    "Review open ports on all devices"
+  ]
+}
