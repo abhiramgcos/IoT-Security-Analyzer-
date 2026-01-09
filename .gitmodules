@@ -1,6 +1,6 @@
 [submodule "firmwares/firmae"]
 	path = firmwares/firmae
-	url = https://github.com/Spandana0987/FirmAE
+	url = https://github.com/abhiramgcos/FirmAE.git
 [submodule "traffic_analyzer"]
 	path = traffic_analyzer
 	url = https://github.com/vignexh04/traffic_analyzer
