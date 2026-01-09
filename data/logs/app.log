@@ -1029,3 +1029,15 @@ tshark: There is no device named "wlan0".
 2026-01-09 07:47:26,958 - scanner_routes - INFO - Returning 0/0 valid devices
 2026-01-09 07:47:26,960 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
 2026-01-09 07:47:47,366 - firmware_routes - INFO - Firmware uploaded: ./data/firmware/uploads/c7v5_us-up-ver1-2-1-P1[20220715-rel19099]_2022-07-15_17.44.43.bin (15727744 bytes)
+2026-01-09 08:28:19,613 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-09 08:28:31,150 - auth_service - INFO - Auth tables initialized
+2026-01-09 08:28:31,174 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-09 08:28:31,174 - main - INFO - Backend API initialized
+2026-01-09 08:28:31,174 - auth_service - INFO - Auth tables initialized
+2026-01-09 08:28:31,182 - auth_service - ERROR - Registration failed: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72])
+2026-01-09 08:28:33,386 - scanner_routes - INFO - Fetched 0 devices from DB
+2026-01-09 08:28:33,386 - scanner_routes - INFO - Returning 0/0 valid devices
+2026-01-09 08:28:33,389 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-09 08:28:34,806 - scanner_routes - INFO - Fetched 0 devices from DB
+2026-01-09 08:28:34,806 - scanner_routes - INFO - Returning 0/0 valid devices
+2026-01-09 08:28:58,447 - firmware_routes - INFO - Firmware uploaded: ./data/firmware/uploads/c7v5_us-up-ver1-2-1-P1[20220715-rel19099]_2022-07-15_17.44.43.bin (15727744 bytes)
