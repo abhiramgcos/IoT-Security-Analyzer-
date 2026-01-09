@@ -94,3 +94,49 @@ services:
       - ./traffic_analyzer/suricata_config/rules:/etc/suricata/rules
     command: suricata -c /etc/suricata/suricata.yaml -i eth0
     restart: unless-stopped
+
+  # PostgreSQL for FirmAE
+  postgres:
+    image: postgres:13-alpine
+    container_name: iot-firmae-postgres
+    environment:
+      - POSTGRES_USER=firmae
+      - POSTGRES_PASSWORD=firmae
+      - POSTGRES_DB=firmware
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backup:/backup
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U firmae -d firmware"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FirmAE Firmware Emulation Service
+  firmae:
+    build:
+      context: ./firmwares/firmae
+      dockerfile: Dockerfile
+    container_name: iot-firmae
+    privileged: true
+    environment:
+      - FIRMAE_DOCKER=1
+      - PSQL_IP=postgres
+    volumes:
+      - ./firmwares/firmae:/work/FirmAE
+      - ./data/firmware:/work/firmwares
+      - /dev:/dev
+    ports:
+      - "8002:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    command: >
+      sh -c "cd /work/FirmAE/api && uvicorn main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  postgres_data:

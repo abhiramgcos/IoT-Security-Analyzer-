@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 import asyncio
 from backend.logger import Logger
 from backend.database import Database
-from backend.routes import scanner, firmware, vulnerabilities, traffic, reports
+from backend.routes import scanner, firmware, vulnerabilities, traffic, reports, auth
 
 logger = Logger('main').get_logger()
 db = Database()
@@ -17,6 +17,12 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("=== IoT Security Analyzer Starting ===")
     logger.info("Backend API initialized")
+    
+    # Create default admin user if needed
+    from backend.services.auth_service import AuthService
+    auth_svc = AuthService(db)
+    auth_svc.create_default_admin()
+    
     yield
     # Shutdown
     logger.info("=== IoT Security Analyzer Shutting Down ===")
@@ -39,6 +45,7 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(scanner.router, prefix="/api/scanner", tags=["Network Scanning"])
 app.include_router(firmware.router, prefix="/api/firmware", tags=["Firmware Management"])
 app.include_router(vulnerabilities.router, prefix="/api/vulnerabilities", tags=["Vulnerability Analysis"])

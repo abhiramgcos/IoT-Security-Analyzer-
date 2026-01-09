@@ -62,10 +62,70 @@ class APIClient:
         response.raise_for_status()
         return response.json()
     
+    def upload_firmware(self, file) -> Dict:
+        """Upload firmware file for analysis"""
+        files = {'file': file}
+        response = self.session.post(
+            f"{self.base_url}/api/firmware/upload",
+            files=files
+        )
+        response.raise_for_status()
+        return response.json()
+    
+    def analyze_firmware(self, firmware_path: str) -> Dict:
+        """Analyze firmware using Binwalk"""
+        response = self.session.post(
+            f"{self.base_url}/api/firmware/analyze",
+            data={"firmware_path": firmware_path}
+        )
+        response.raise_for_status()
+        return response.json()
+    
+    def start_emulation(self, firmware_path: str) -> Dict:
+        """Start FirmAE emulation"""
+        response = self.session.post(
+            f"{self.base_url}/api/firmware/emulate",
+            data={"firmware_path": firmware_path}
+        )
+        response.raise_for_status()
+        return response.json()
+    
+    def get_emulation_status(self, request_id: str) -> Dict:
+        """Get FirmAE emulation status"""
+        response = self.session.get(
+            f"{self.base_url}/api/firmware/emulate/status/{request_id}"
+        )
+        response.raise_for_status()
+        return response.json()
+    
+    def get_emulation_result(self, request_id: str) -> Dict:
+        """Get FirmAE emulation result"""
+        response = self.session.get(
+            f"{self.base_url}/api/firmware/emulate/result/{request_id}"
+        )
+        response.raise_for_status()
+        return response.json()
+    
+    def get_emulation_logs(self, request_id: str) -> Dict:
+        """Get FirmAE emulation logs"""
+        response = self.session.get(
+            f"{self.base_url}/api/firmware/emulate/logs/{request_id}"
+        )
+        response.raise_for_status()
+        return response.json()
+    
     def get_cached_firmware(self) -> Dict:
         """Get cached firmware"""
         response = self.session.get(
             f"{self.base_url}/api/firmware/cache"
+        )
+        response.raise_for_status()
+        return response.json()
+    
+    def delete_firmware(self, filename: str) -> Dict:
+        """Delete cached firmware file"""
+        response = self.session.delete(
+            f"{self.base_url}/api/firmware/cache/{filename}"
         )
         response.raise_for_status()
         return response.json()

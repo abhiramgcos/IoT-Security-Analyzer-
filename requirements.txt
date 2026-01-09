@@ -11,3 +11,11 @@ watchdog==3.0.0
 manuf==1.1.5
 pyshark==0.6
 websockets
+aiofiles>=23.0.0
+httpx>=0.25.0
+reportlab>=4.0.0
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+
+
+

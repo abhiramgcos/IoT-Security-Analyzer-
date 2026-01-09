@@ -1,8 +1,8 @@
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Literal
 from datetime import datetime
 from backend.logger import Logger
 import os
@@ -16,6 +16,7 @@ class ReportRequest(BaseModel):
     include_firmware: bool = True
     include_traffic: bool = True
     include_recommendations: bool = True
+    format: Literal["json", "html", "pdf"] = "json"
 
 @router.post("/generate")
 async def generate_report(request: ReportRequest):
@@ -27,6 +28,7 @@ async def generate_report(request: ReportRequest):
     - **include_firmware**: Include firmware analysis
     - **include_traffic**: Include traffic analysis
     - **include_recommendations**: Include remediation recommendations
+    - **format**: Report format (json, html, pdf)
     
     ### Returns:
     - report_id: Report identifier
@@ -36,7 +38,7 @@ async def generate_report(request: ReportRequest):
     try:
         from backend.services.report_generator import ReportGenerator
         
-        logger.info(f"Generating report for {request.subnet}")
+        logger.info(f"Generating {request.format} report for {request.subnet}")
         
         generator = ReportGenerator()
         report_id = generator.generate(
@@ -45,15 +47,20 @@ async def generate_report(request: ReportRequest):
                 "include_firmware": request.include_firmware,
                 "include_traffic": request.include_traffic,
                 "include_recommendations": request.include_recommendations
-            }
+            },
+            format=request.format
         )
+        
+        # Get available formats
+        available_formats = generator.get_available_formats(report_id)
         
         return {
             "report_id": report_id,
             "status": "completed",
             "timestamp": datetime.now().isoformat(),
-            "format_options": ["JSON"],
-            "estimated_completion": "Completed"
+            "format": request.format,
+            "format_options": available_formats,
+            "download_url": f"/api/reports/download/{report_id}?format={request.format}"
         }
     
     except Exception as e:

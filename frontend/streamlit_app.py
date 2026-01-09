@@ -236,34 +236,208 @@ elif page == "🔍 Network Scan":
 elif page == "📦 Firmware Analysis":
     st.title("Firmware Analysis")
     
-    col1, col2, col3 = st.columns(3)
+    # Create tabs for different analysis modes
+    tab1, tab2, tab3 = st.tabs(["📤 Upload & Analyze", "📥 Fetch from Vendor", "🔬 Advanced Emulation"])
     
-    with col1:
-        manufacturer = st.text_input("Manufacturer", "TP-Link")
-    with col2:
-        model = st.text_input("Model", "Archer C7")
-    with col3:
-        version = st.text_input("Version (optional)", "")
+    with tab1:
+        st.subheader("Upload Firmware for Analysis")
+        
+        uploaded_file = st.file_uploader(
+            "Choose a firmware file",
+            type=['bin', 'img', 'trx', 'chk', 'fw', 'zip', 'tar', 'gz'],
+            help="Supported formats: .bin, .img, .trx, .chk, .fw, .zip, .tar, .gz"
+        )
+        
+        if uploaded_file is not None:
+            st.info(f"📁 File: **{uploaded_file.name}** ({uploaded_file.size / 1024:.1f} KB)")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                if st.button("⬆️ Upload Firmware", use_container_width=True, type="primary"):
+                    with st.spinner("Uploading firmware..."):
+                        try:
+                            result = api.upload_firmware((uploaded_file.name, uploaded_file, 'application/octet-stream'))
+                            st.success(f"✅ Uploaded successfully!")
+                            st.session_state['last_uploaded_path'] = result.get('path')
+                            st.session_state['last_uploaded_hash'] = result.get('sha256')
+                            
+                            st.markdown(f"""
+                            **File Details:**
+                            - Path: `{result.get('path')}`
+                            - Size: {result.get('size')} bytes
+                            - SHA256: `{result.get('sha256')[:16]}...`
+                            """)
+                        except Exception as e:
+                            st.error(f"Upload failed: {e}")
+            
+            with col2:
+                if st.session_state.get('last_uploaded_path'):
+                    if st.button("🔍 Analyze with Binwalk", use_container_width=True):
+                        with st.spinner("Analyzing firmware (this may take a minute)..."):
+                            try:
+                                result = api.analyze_firmware(st.session_state['last_uploaded_path'])
+                                analysis = result.get('analysis', {})
+                                
+                                st.success("Analysis complete!")
+                                
+                                col_a, col_b, col_c = st.columns(3)
+                                with col_a:
+                                    st.metric("Architecture", analysis.get('architecture', 'Unknown'))
+                                with col_b:
+                                    st.metric("File System", analysis.get('file_system', 'Unknown'))
+                                with col_c:
+                                    st.metric("Entropy", f"{analysis.get('entropy', 0):.1f}")
+                                
+                                if analysis.get('secrets_found'):
+                                    st.warning("⚠️ Potential Secrets Found:")
+                                    for secret in analysis.get('secrets_found', []):
+                                        st.markdown(f"- {secret}")
+                                else:
+                                    st.info("No obvious secrets detected")
+                                    
+                            except Exception as e:
+                                st.error(f"Analysis failed: {e}")
     
-    if st.button("📥 Fetch Firmware", use_container_width=True):
-        with st.spinner("Downloading firmware..."):
+    with tab2:
+        st.subheader("Fetch Firmware from Vendor")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            manufacturer = st.text_input("Manufacturer", "TP-Link")
+        with col2:
+            model = st.text_input("Model", "Archer C7")
+        with col3:
+            version = st.text_input("Version (optional)", "")
+        
+        if st.button("📥 Fetch Firmware", use_container_width=True):
+            with st.spinner("Downloading firmware..."):
+                try:
+                    result = api.fetch_firmware(manufacturer, model, version)
+                    st.success(f"Firmware downloaded: {result.get('path')}")
+                    st.session_state['last_uploaded_path'] = result.get('path')
+                except Exception as e:
+                    st.error(f"Fetch failed: {e}")
+    
+    with tab3:
+        st.subheader("Advanced Firmware Emulation (FirmAE)")
+        
+        st.info("""
+        **FirmAE** provides advanced firmware analysis through full system emulation:
+        - 🖥️ Emulates firmware in QEMU
+        - 🌐 Tests network reachability
+        - 🕸️ Detects web interfaces
+        - 🔓 Identifies exposed services
+        """)
+        
+        # Check for uploaded firmware
+        firmware_path = st.session_state.get('last_uploaded_path', '')
+        
+        if not firmware_path:
+            st.warning("Please upload a firmware file in the 'Upload & Analyze' tab first.")
+        else:
+            st.markdown(f"**Selected Firmware:** `{firmware_path}`")
+            
+            col1, col2 = st.columns([2, 1])
+            
+            with col1:
+                if st.button("🚀 Start Emulation", use_container_width=True, type="primary"):
+                    with st.spinner("Starting FirmAE emulation..."):
+                        try:
+                            result = api.start_emulation(firmware_path)
+                            st.session_state['emulation_request_id'] = result.get('request_id')
+                            st.success(f"Emulation started! Request ID: `{result.get('request_id')}`")
+                            st.info(result.get('message'))
+                        except Exception as e:
+                            if "503" in str(e) or "Connection" in str(e):
+                                st.error("FirmAE service is not available. Please ensure the FirmAE Docker container is running.")
+                            else:
+                                st.error(f"Emulation failed: {e}")
+            
+            with col2:
+                if st.session_state.get('emulation_request_id'):
+                    if st.button("🔄 Check Status", use_container_width=True):
+                        try:
+                            status = api.get_emulation_status(st.session_state['emulation_request_id'])
+                            st.json(status)
+                        except Exception as e:
+                            st.error(f"Status check failed: {e}")
+        
+        # Display emulation results if available
+        if st.session_state.get('emulation_request_id'):
+            st.markdown("---")
+            st.subheader("Emulation Status")
+            
             try:
-                result = api.fetch_firmware(manufacturer, model, version)
-                st.success(f"Firmware downloaded: {result.get('path')}")
+                status = api.get_emulation_status(st.session_state['emulation_request_id'])
+                status_value = status.get('status', 'unknown')
+                
+                if status_value == 'queued':
+                    st.info("⏳ Job is queued...")
+                elif status_value == 'running':
+                    st.warning("🔄 Emulation in progress...")
+                elif status_value == 'completed':
+                    st.success("✅ Emulation completed!")
+                    
+                    result = api.get_emulation_result(st.session_state['emulation_request_id'])
+                    if result.get('data', {}).get('result'):
+                        st.json(result)
+                elif status_value == 'failed':
+                    st.error(f"❌ Emulation failed: {status.get('error')}")
+                
+                # Show logs
+                with st.expander("📋 Emulation Logs"):
+                    try:
+                        logs = api.get_emulation_logs(st.session_state['emulation_request_id'])
+                        for log in logs.get('data', []):
+                            st.text(f"[{log.get('timestamp')}] {log.get('message')}")
+                    except:
+                        st.info("No logs available")
+                        
             except Exception as e:
-                st.error(f"Fetch failed: {e}")
+                st.error(f"Could not fetch status: {e}")
     
     st.markdown("---")
-    st.subheader("Cached Firmware")
+    st.subheader("📁 Cached Firmware")
+    
+    if st.button("🔄 Refresh Cache"):
+        st.rerun()
     
     try:
         cache = api.get_cached_firmware()
-        if cache.get('cached_firmware'):
-            st.json(cache)
-        else:
+        
+        # Show uploads
+        uploads = cache.get('uploads', [])
+        if uploads:
+            st.markdown("**Uploaded Files:**")
+            for upload in uploads:
+                col1, col2, col3 = st.columns([3, 1, 1])
+                with col1:
+                    st.text(upload.get('filename'))
+                with col2:
+                    st.text(f"{upload.get('size', 0) / 1024:.1f} KB")
+                with col3:
+                    if st.button("🗑️", key=f"del_{upload.get('filename')}"):
+                        try:
+                            api.delete_firmware(upload.get('filename'))
+                            st.success("Deleted!")
+                            st.rerun()
+                        except Exception as e:
+                            st.error(f"Delete failed: {e}")
+        
+        # Show vendor firmware
+        cached = cache.get('cached_firmware', {})
+        if cached:
+            st.markdown("**Vendor Firmware:**")
+            st.json(cached)
+        
+        if not uploads and not cached:
             st.info("No cached firmware")
+            
     except Exception as e:
         st.error(f"Error: {e}")
+
 
 elif page == "⚠️ Vulnerabilities":
     st.title("Vulnerability Analysis")
@@ -495,7 +669,12 @@ elif page == "📊 Traffic Monitor":
 elif page == "📄 Reports":
     st.title("Report Generation")
     
-    subnet = st.text_input("Subnet for Report", "192.168.1.0/24")
+    col1, col2 = st.columns([3, 1])
+    
+    with col1:
+        subnet = st.text_input("Subnet for Report", "192.168.1.0/24")
+    with col2:
+        report_format = st.selectbox("Report Format", ["json", "html", "pdf"], index=1)
     
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -505,52 +684,111 @@ elif page == "📄 Reports":
     with col3:
         include_recommendations = st.checkbox("Include Recommendations", True)
     
-    if st.button("📋 Generate Report", use_container_width=True):
-        with st.spinner("Generating report..."):
+    if st.button("📋 Generate Report", use_container_width=True, type="primary"):
+        with st.spinner(f"Generating {report_format.upper()} report..."):
             try:
-                result = api.generate_report(subnet, include_firmware, 
-                                            include_traffic, include_recommendations)
-                st.success(f"Report generated! ID: {result.get('report_id')}")
+                # Call API with format
+                response = api.session.post(
+                    f"{api.base_url}/api/reports/generate",
+                    json={
+                        "subnet": subnet,
+                        "include_firmware": include_firmware,
+                        "include_traffic": include_traffic,
+                        "include_recommendations": include_recommendations,
+                        "format": report_format
+                    }
+                )
+                response.raise_for_status()
+                result = response.json()
                 
-                # Show download options
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    if st.button("📥 Download PDF"):
-                        st.info("Downloading...")
-                with col2:
-                    if st.button("📥 Download JSON"):
-                        st.info("Downloading...")
-                with col3:
-                    if st.button("📥 Download HTML"):
-                        st.info("Downloading...")
+                st.success(f"✅ Report generated! ID: {result.get('report_id')}")
+                st.session_state['last_report_id'] = result.get('report_id')
+                st.session_state['last_report_formats'] = result.get('format_options', [])
+                
             except Exception as e:
                 st.error(f"Generation failed: {e}")
     
+    # Show download options if report was generated
+    if st.session_state.get('last_report_id'):
+        st.markdown("---")
+        st.subheader("📥 Download Report")
+        
+        report_id = st.session_state['last_report_id']
+        available_formats = st.session_state.get('last_report_formats', ['json'])
+        
+        st.info(f"Report ID: **{report_id}** | Available formats: {', '.join(f.upper() for f in available_formats)}")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if 'pdf' in available_formats:
+                download_url = f"{api.base_url}/api/reports/download/{report_id}?format=pdf"
+                st.markdown(f"[📄 Download PDF]({download_url})")
+            else:
+                st.button("📄 PDF (not available)", disabled=True)
+        
+        with col2:
+            if 'html' in available_formats:
+                download_url = f"{api.base_url}/api/reports/download/{report_id}?format=html"
+                st.markdown(f"[🌐 Download HTML]({download_url})")
+            else:
+                st.button("🌐 HTML (not available)", disabled=True)
+        
+        with col3:
+            if 'json' in available_formats:
+                download_url = f"{api.base_url}/api/reports/download/{report_id}?format=json"
+                st.markdown(f"[📊 Download JSON]({download_url})")
+            else:
+                st.button("📊 JSON (not available)", disabled=True)
+    
     st.markdown("---")
-    st.subheader("Network Security Score")
+    st.subheader("📊 Network Security Score")
     
     try:
         score_data = api.get_network_score()
         
-        # Score gauge
-        fig = go.Figure(go.Indicator(
-            mode="gauge+number",
-            value=score_data['overall_score'],
-            title={'text': "Overall Score"},
-            domain={'x': [0, 1], 'y': [0, 1]},
-            gauge={
-                'axis': {'range': [0, 100]},
-                'bar': {'color': "darkblue"},
-                'steps': [
-                    {'range': [0, 30], 'color': "#FF0000"},
-                    {'range': [30, 60], 'color': "#FFD93D"},
-                    {'range': [60, 100], 'color': "#6BCB77"}
-                ]
-            }
-        ))
-        st.plotly_chart(fig, use_container_width=True)
+        col1, col2 = st.columns([2, 1])
+        
+        with col1:
+            # Score gauge
+            fig = go.Figure(go.Indicator(
+                mode="gauge+number",
+                value=score_data['overall_score'],
+                title={'text': "Overall Score"},
+                domain={'x': [0, 1], 'y': [0, 1]},
+                gauge={
+                    'axis': {'range': [0, 100]},
+                    'bar': {'color': "darkblue"},
+                    'steps': [
+                        {'range': [0, 30], 'color': "#FF0000"},
+                        {'range': [30, 60], 'color': "#FFD93D"},
+                        {'range': [60, 100], 'color': "#6BCB77"}
+                    ]
+                }
+            ))
+            fig.update_layout(height=300)
+            st.plotly_chart(fig, use_container_width=True)
+        
+        with col2:
+            st.markdown("### Score Breakdown")
+            breakdown = score_data.get('breakdown', {})
+            for category, score in breakdown.items():
+                label = category.replace('_', ' ').title()
+                if score >= 80:
+                    st.success(f"{label}: {score}")
+                elif score >= 50:
+                    st.warning(f"{label}: {score}")
+                else:
+                    st.error(f"{label}: {score}")
+            
+            # Grade
+            grade = score_data.get('grade', 'N/A')
+            grade_color = "#10b981" if grade in ['A', 'B'] else "#f59e0b" if grade == 'C' else "#dc2626"
+            st.markdown(f"### Grade: <span style='color:{grade_color};font-size:2rem'>{grade}</span>", unsafe_allow_html=True)
+            
     except Exception as e:
         st.error(f"Error: {e}")
+
 
 elif page == "⚙️ Settings":
     st.title("Settings")
