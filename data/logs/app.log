@@ -1000,3 +1000,32 @@ tshark: There is no device named "wlan0".
 2026-01-09 05:33:39,626 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
 2026-01-09 05:34:03,304 - firmware_routes - INFO - Fetching firmware for TP-Link Archer C7
 2026-01-09 05:34:03,304 - firmware_fetcher - INFO - Using cached firmware: ./data/firmware/TP-Link/Archer C7_latest.bin
+2026-01-09 05:37:45,701 - main - INFO - === IoT Security Analyzer Shutting Down ===
+2026-01-09 05:37:56,781 - auth_service - INFO - Auth tables initialized
+2026-01-09 05:37:56,806 - main - INFO - === IoT Security Analyzer Starting ===
+2026-01-09 05:37:56,807 - main - INFO - Backend API initialized
+2026-01-09 05:37:56,807 - auth_service - INFO - Auth tables initialized
+2026-01-09 05:37:56,813 - auth_service - ERROR - Registration failed: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72])
+2026-01-09 05:59:31,923 - scanner_routes - INFO - Fetched 0 devices from DB
+2026-01-09 05:59:31,923 - scanner_routes - INFO - Returning 0/0 valid devices
+2026-01-09 05:59:31,928 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-09 05:59:40,421 - firmware_routes - INFO - Fetching firmware for TP-Link Archer C7
+2026-01-09 05:59:40,421 - firmware_fetcher - INFO - Using cached firmware: ./data/firmware/TP-Link/Archer C7_latest.bin
+2026-01-09 06:10:02,226 - scanner_routes - INFO - Fetched 0 devices from DB
+2026-01-09 06:10:02,226 - scanner_routes - INFO - Returning 0/0 valid devices
+2026-01-09 06:10:02,228 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-09 06:10:07,482 - firmware_routes - INFO - Fetching firmware for TP-Link Archer C7
+2026-01-09 06:10:07,482 - firmware_fetcher - INFO - Using cached firmware: ./data/firmware/TP-Link/Archer C7_latest.bin
+2026-01-09 07:05:17,497 - firmware_routes - INFO - Firmware uploaded: ./data/firmware/uploads/USB_Printer_Controller_Utility_Windows.zip (8249471 bytes)
+2026-01-09 07:46:37,967 - firmware_routes - INFO - Firmware uploaded: ./data/firmware/uploads/Archer_C7(EU)_V5.0_220715.zip (16398791 bytes)
+2026-01-09 07:46:41,083 - firmware_analyzer - INFO - Analyzing firmware: ./data/firmware/uploads/Archer_C7(EU)_V5.0_220715.zip
+2026-01-09 07:47:05,210 - firmware_analyzer - INFO - Analyzing firmware: ./data/firmware/uploads/Archer_C7(EU)_V5.0_220715.zip
+2026-01-09 07:47:08,718 - firmware_analyzer - INFO - Analyzing firmware: ./data/firmware/uploads/Archer_C7(EU)_V5.0_220715.zip
+2026-01-09 07:47:13,383 - firmware_routes - INFO - Deleted firmware: ./data/firmware/uploads/Archer_C7(EU)_V5.0_220715.zip
+2026-01-09 07:47:14,936 - firmware_routes - INFO - Deleted firmware: ./data/firmware/uploads/USB_Printer_Controller_Utility_Windows.zip
+2026-01-09 07:47:21,850 - scanner_routes - INFO - Clearing all database data
+2026-01-09 07:47:21,857 - database - INFO - All data cleared from database
+2026-01-09 07:47:26,958 - scanner_routes - INFO - Fetched 0 devices from DB
+2026-01-09 07:47:26,958 - scanner_routes - INFO - Returning 0/0 valid devices
+2026-01-09 07:47:26,960 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-09 07:47:47,366 - firmware_routes - INFO - Firmware uploaded: ./data/firmware/uploads/c7v5_us-up-ver1-2-1-P1[20220715-rel19099]_2022-07-15_17.44.43.bin (15727744 bytes)

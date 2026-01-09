@@ -125,6 +125,7 @@ services:
     environment:
       - FIRMAE_DOCKER=1
       - PSQL_IP=postgres
+      - BINARY_DIR=/opt/firmae_binaries/
     volumes:
       - ./firmwares/firmae:/work/FirmAE
       - ./data/firmware:/work/firmwares
