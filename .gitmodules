@@ -1,6 +1,3 @@
-[submodule "firmAE"]
-	path = firmAE
-	url = https://github.com/Spandana0987/FirmAE
 [submodule "firmwares/firmae"]
 	path = firmwares/firmae
 	url = https://github.com/Spandana0987/FirmAE

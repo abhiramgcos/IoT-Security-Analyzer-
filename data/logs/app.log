@@ -995,3 +995,8 @@ tshark: There is no device named "wlan0".
 2026-01-09 05:29:17,635 - scanner_routes - INFO - Returning 0/0 valid devices
 2026-01-09 05:29:27,849 - firmware_routes - INFO - Fetching firmware for TP-Link Archer C7
 2026-01-09 05:29:27,849 - firmware_fetcher - INFO - Downloading firmware for TP-Link Archer C7...
+2026-01-09 05:33:39,624 - scanner_routes - INFO - Fetched 0 devices from DB
+2026-01-09 05:33:39,625 - scanner_routes - INFO - Returning 0/0 valid devices
+2026-01-09 05:33:39,626 - vulnerability_routes - INFO - Vulnerability summary: {'total_cves': 0, 'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'average_cvss': 0.0}
+2026-01-09 05:34:03,304 - firmware_routes - INFO - Fetching firmware for TP-Link Archer C7
+2026-01-09 05:34:03,304 - firmware_fetcher - INFO - Using cached firmware: ./data/firmware/TP-Link/Archer C7_latest.bin
