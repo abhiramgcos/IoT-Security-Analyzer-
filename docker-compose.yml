@@ -97,7 +97,7 @@ services:
 
   # PostgreSQL for FirmAE
   postgres:
-    image: postgres:13-alpine
+    image: postgres:12-alpine
     container_name: iot-firmae-postgres
     environment:
       - POSTGRES_USER=firmae
@@ -110,7 +110,7 @@ services:
       - "5432:5432"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U firmae -d firmware"]
+      test: [ "CMD-SHELL", "pg_isready -U firmae -d firmware" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -136,7 +136,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     command: >
-      sh -c "cd /work/FirmAE/api && uvicorn main:app --host 0.0.0.0 --port 8000"
+      sh -c "cd /work/FirmAE && uvicorn api.main:app --host 0.0.0.0 --port 8000"
 
 volumes:
   postgres_data:
